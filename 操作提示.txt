@@ -1,0 +1,20 @@
+python manage.py startapp myapp
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py shell
+from testapp1.models import Classes,Students
+from django.utils import timezone
+
+
+类名.objects.all()
+
+类名.objects.get(pk=1)
+
+对象名.delete（）
+对象名.save（）     存入数据库
+
+class1.students_set.all()  得到该班内所有学生
+class1.students_set.create( ···· =·····  ，··=···· ，) 创建学生并存入数据库
+
+python manage.py runserver
