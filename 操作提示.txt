@@ -18,3 +18,5 @@ class1.students_set.all()  得到该班内所有学生
 class1.students_set.create( ···· =·····  ，··=···· ，) 创建学生并存入数据库
 
 python manage.py runserver
+python manage.py createsuperuser
+
