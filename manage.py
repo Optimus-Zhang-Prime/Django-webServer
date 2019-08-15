@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#命令行工具，使我们与Django项目进行交互
+# 命令行工具，使我们与Django项目进行交互
 import os
 import sys
 

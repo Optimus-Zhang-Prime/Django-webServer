@@ -56,7 +56,7 @@ ROOT_URLCONF = 'DjangoTest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]#将Templates加来
         ,
         'APP_DIRS': True,
         'OPTIONS': {
