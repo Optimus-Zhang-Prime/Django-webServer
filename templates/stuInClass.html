@@ -1,0 +1,13 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>学生列表</title>
+</head>
+<body>
+    {% for stu in stulist %}
+        <li><a>{{ stu.name  }}</a></li>
+
+    {% endfor %}
+</body>
+</html>

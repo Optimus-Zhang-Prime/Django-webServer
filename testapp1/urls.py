@@ -1,4 +1,5 @@
-from django.urls import path
+from django.conf.urls import url
 from . import views
 
-urlpatterns = [path('', views.showClasses)]  # 转到视图
+urlpatterns = [url(r'^$', views.showClasses),
+               url(r'^(\d+)$',views.classStu),]
