@@ -1,9 +1,13 @@
 from django.db import models
-
+'''
+关于models：
+TextField：大文本字段
+DecimalField(max_digits=总位数，decimal_places=小数点后位数):小数
+'''
 
 # Create your models here.
 class Classes(models.Model):  # 一个类对应数据库中的一个表
-    class_name = models.CharField(max_length=20)
+    class_name = models.CharField(max_length=20)#字符串
     stu_number = models.IntegerField()
     isDelete = models.BooleanField()
 
