@@ -29,7 +29,10 @@ class Classes(models.Model):  # 一个类对应数据库中的一个表
 
     def __str__(self):
         return self.class_name
-
+    #class Meta:
+        #db_table=""  设置表名
+        #ordering=['id']升序    ['-id']降序
+    #stuChange=models.Manager() 自定义模型管理器
 
 class Students(models.Model):
     name = models.CharField(max_length=20)
