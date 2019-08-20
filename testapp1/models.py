@@ -33,7 +33,7 @@ class Classes(models.Model):  # 一个类对应数据库中的一个表
         #db_table=""  设置表名
         #ordering=['id']升序    ['-id']降序
     #stuChange=models.Manager() 自定义模型管理器
-
+    #也可以重写Manager类
 class Students(models.Model):
     name = models.CharField(max_length=20)
     gender = models.CharField(max_length=4)
