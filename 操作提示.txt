@@ -8,7 +8,7 @@ from testapp1.models import Classes,Students
 from django.utils import timezone
 
 
-类名.objects.all()
+类名.objects.all()#得到该类所有实例
 
 类名.objects.get(pk=1)
 
