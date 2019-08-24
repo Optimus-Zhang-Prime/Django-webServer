@@ -22,10 +22,38 @@ OneToOneField：一对一，放任一一端
 
 
 # Create your models here.
-class Classes(models.Model):  # 一个类对应数据库中的一个表
+
+class ClassesManager(models.Manager):
+    def get_queryset(self):  # 修改查询
+        return super(ClassesManager, self).get_queryset().filter(
+            isDelete=False)  # 过滤掉被删除的班级，过滤器可以写多重， .filter(键=值，键=值).filter()
+
+
+'''
+其它过滤器：
+all()全部，返回的是对象
+exclude()过滤掉符合条件的数据
+order_by()排序
+values()全部，返回到是详细信息列表，每个对象是一个字典
+
+'''
+
+
+def createClass(self, name, number, isd=False):  # 创建对象
+    aClass = self.model()
+    aClass.class_name = name
+    aClass.stu_number = number
+    aClass.isDelete = isd
+    return aClass
+    # 在views.py中：aClass=Classes.classobj.createClass("", , )
+
+
+class Classes(models.Model):  # 班级类，一个类对应数据库中的一个表
     class_name = models.CharField(max_length=20)  # 字符串
     stu_number = models.IntegerField()
     isDelete = models.BooleanField()  # 可设置default
+
+    classobj = ClassesManager()
 
     def __str__(self):
         return self.class_name
@@ -39,21 +67,7 @@ class Classes(models.Model):  # 一个类对应数据库中的一个表
     def createClass(cls, name, number, isd=False):
         aClass = cls(class_name=name, stu_number=number, isDelete=isd)
         return aClass
-    #也可以在重写Manager类时添加一个createClass方法,例如：
-
-'''
-class ClassesManager(models.Manager):
-    def get_queryset(self):#修改查询
-        return super(StudentsManager,self).get_queryset().filter(isDelete=False)#过滤掉被删除的班级
-    def createClass(self, name, number, isd=False):#创建对象
-        aClass=self.model()
-        aClass.class_name=name
-        aClass.stu_number=number
-        aClass.isDelete=isd
-        return aClass
-然后在Classes类中：classobj=ClassesManager()
-在views.py中：aClass=Classes.classobj.createClass("", , )
-'''
+    # 也可以在重写Manager类时添加一个createClass方法
 
 
 class Students(models.Model):

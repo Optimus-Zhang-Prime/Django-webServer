@@ -8,7 +8,7 @@
 <h1>班级列表</h1>
 <ul>
     {% for class in AllClasses %}
-        <li><a href="{{ class.id }}">{{ class.class_name  }}   人数{{ class.stu_number  }}</a></li>
+        <li><a href="{{ class.id }}">{{ class.class_name }} 人数{{ class.stu_number }}</a></li>
 
     {% endfor %}
 </ul>

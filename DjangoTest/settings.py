@@ -1,4 +1,4 @@
-#项目配置
+# 项目配置
 """
 Django settings for DjangoTest project.
 
@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -28,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'testapp1',#自己改的
+    'testapp1',  # 自己改的
 ]
 
 MIDDLEWARE = [
@@ -56,7 +54,7 @@ ROOT_URLCONF = 'DjangoTest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]#将Templates加来
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]  # 将Templates加来
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -72,22 +70,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DjangoTest.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {#自己改的
+    'default': {  # 自己改的
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "Djangotest",
         'USER': "root",
-        'PASSWORD':"123456",
-        'HOST':"localhost",
-        'PORT':"3306"#端口
+        'PASSWORD': "123456",
+        'HOST': "localhost",
+        'PORT': "3306"  # 端口
 
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -107,13 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hans'#自己改的
+LANGUAGE_CODE = 'zh-Hans'  # 自己改的
 
-TIME_ZONE = 'Asia/Shanghai'#自己改的
+TIME_ZONE = 'Asia/Shanghai'  # 自己改的
 
 USE_I18N = True
 
@@ -121,18 +116,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
-
 # 当运行 python manage.py collectstatic 的时候
 # STATIC_ROOT 文件夹 是用来将所有STATICFILES_DIRS中所有文件夹中的文件，以及各app中static中的文件都复制过来
 # 把这些文件放到一起是为了用apache等部署的时候更方便
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 
 # 这个是默认设置，Django 默认会在 STATICFILES_DIRS中的文件夹 和 各app下的static文件夹中找文件
 # 注意有先后顺序，找到了就不再继续找了
