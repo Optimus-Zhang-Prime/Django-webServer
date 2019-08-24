@@ -29,11 +29,27 @@ class Classes(models.Model):  # 一个类对应数据库中的一个表
 
     def __str__(self):
         return self.class_name
-    #class Meta:
-        #db_table=""  设置表名
-        #ordering=['id']升序    ['-id']降序
-    #stuChange=models.Manager() 自定义模型管理器
-    #也可以重写Manager类
+
+    # 可以定义一个类方法用于创建对象，而不能使用__init__
+    @classmethod
+    def createClass(cls,name,number,isd=False):
+        aClass=cls(class_name=name,stu_number=number,isDelete=isd)
+        return aClass
+    # class Meta:
+    # db_table=""  设置表名
+    # ordering=['id']升序    ['-id']降序
+    # stuChange=models.Manager() 自定义模型管理器
+    # 也可以重写Manager类,例如：
+
+
+'''
+class StudentsManager(models.Manager):
+    def get_queryset(self):#修改查询
+        return super(StudentsManager,self).get_queryset().filter(isDelete=False)#过滤掉被删除的学生
+
+'''
+
+
 class Students(models.Model):
     name = models.CharField(max_length=20)
     gender = models.CharField(max_length=4)
