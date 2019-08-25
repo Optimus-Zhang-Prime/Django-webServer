@@ -7,12 +7,12 @@ from django.shortcuts import render
 
 # 以下各函数在urls.py中使用
 def showClasses(request):
-    classList = Classes.objects.all()
+    classList = Classes.classobj.all()
     return render(request, "allClasses.html", {"AllClasses": classList})
 
 
 def classStu(request, num):
-    Oneclass = Classes.objects.get(pk=num)
+    Oneclass = Classes.classobj.get(pk=num)
     stuList = Oneclass.students_set.all()
     return render(request, "stuInClass.html", {"stulist": stuList})
 

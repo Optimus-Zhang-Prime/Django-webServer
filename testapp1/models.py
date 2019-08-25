@@ -1,5 +1,6 @@
 from django.db import models
 
+# from django.utils import timezone     timezone.now可以获取当前时间
 '''
 关于models：
 TextField：大文本字段
