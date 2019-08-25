@@ -19,5 +19,5 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     url(r'^', include('testapp1.urls')),  # 转到app1的urls.py
-    url('^admin/', admin.site.urls),  # ‘’中可以是正则表达式
+    url('^admin/', admin.site.urls),  # 管理员
 ]
