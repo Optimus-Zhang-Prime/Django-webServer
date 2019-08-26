@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Classes
+from .models import Classes,Students
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -13,6 +13,9 @@ def homePage(request):
 def showClasses(request):
     classList = Classes.classobj.all()
     return render(request, "allClasses.html", {"AllClasses": classList})
+def showStudents(request,page):
+    page=int(page)
+    studentsList=Students.objects.all()[(page-1)*5]
 
 
 # render的第三个参数将数据从.py传递到.html,可以像上面用字典的形式，也可以用locals()将所有局部变量传入
