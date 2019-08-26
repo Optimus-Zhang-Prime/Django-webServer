@@ -60,6 +60,15 @@ gte 大于等于
 lt 小于
 lte 小于等于
 year month week_day hour minute second  时间
+
+
+聚合函数：
+aggregate() 括号内可以是Max（） Min（） Count（） Avg（）Sum（）
+如：=Students.stuobj.aggregate(Max('age'))返回所有学生年龄的最大值
+
+from django.db.models import F,Q
+F对象：实现两个属性之间的比较
+如： Filter(girlnum_gt=F('boynum'))返回女生人数大于男生的班级
 '''
 
 
