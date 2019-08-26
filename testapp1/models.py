@@ -69,6 +69,8 @@ aggregate() 括号内可以是Max（） Min（） Count（） Avg（）Sum（）
 from django.db.models import F,Q
 F对象：实现两个属性之间的比较
 如： Filter(girlnum_gt=F('boynum'))返回女生人数大于男生的班级
+Q对象：进行or查询
+如：filter(Q(pk_lte=3)|Q(pk_gt=5))
 '''
 
 
