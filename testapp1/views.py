@@ -18,7 +18,7 @@ def showClasses(request):
 # render的第三个参数将数据从.py传递到.html,可以像上面用字典的形式，也可以用locals()将所有局部变量传入
 
 def classStu(request, num):
-    Oneclass = Classes.classobj.get(pk=num)
+    Oneclass = Classes.classobj.get(pk=num)  # pk代表主键
     stuList = Oneclass.students_set.all()
     return render(request, "stuInClass.html", {"stulist": stuList})
 

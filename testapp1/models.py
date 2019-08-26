@@ -37,6 +37,29 @@ exclude()过滤掉符合条件的数据
 order_by()排序
 values()全部，返回到是详细信息列表，每个对象是一个字典
 
+限制查询集：相当于sql中的limit语句，以[ : ]表示
+如：  a=Stu.all()[0:5]   返回第1、2、3、4条
+
+返回单个数据：
+get() 返回一个满足条件的对象，如果没有或有多个满足条件的对象，分别会引发 模型类.DoesNotExist 模型类.MultipleObjectsReturned 异常
+count() 返回当前查询集中的对象个数
+first() 返回第一个对象
+last() 最后一个对象
+exist() 判断查询集中是否有数据 返回True/False
+
+字段查询：实现sql中的where语句，作为filter等过滤器的参数
+语法为     属性__比较运算符=值
+比较运算符：
+exact 相等
+contains 包含
+startswith、endswith 以··开头/结尾
+以上四个在前面加i表示不区分大小写 如  filter(name__icontains="hh")
+in 范围内   如 pk__in=[2,4,6]
+gt 大于
+gte 大于等于
+lt 小于
+lte 小于等于
+year month week_day hour minute second  时间
 '''
 
 
