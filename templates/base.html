@@ -1,8 +1,17 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE HTML >
+<html lang="zh-CN">
 <head>
+    <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+           <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -10,12 +19,19 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
-{% include 'header.html' %}
-<hr><!--水平线-->
-{% block headmessage %}{% endblock %}
-{% block content %}{% endblock %}
-<hr>
-{% include 'footer.html' %}
+<div class="container-fluid">
+    {% include 'header.html' %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {% block headmessage %}{% endblock %}
+        </div>
+        <div class="panel-body">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="panel-footer">
+            {% include 'footer.html' %}
+        </div>
+    </div>
+</div>
 </body>
 </html>
