@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'DjangoTest.urls'
+ROOT_URLCONF = 'DjangoTest.urls'  # 根级url配置文件
 
 TEMPLATES = [
     {

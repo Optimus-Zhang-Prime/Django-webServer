@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>班级信息</title>
-</head>
-<body>
-<h1>班级列表</h1>
+{% extends 'base.html' %}
+{% block title %}班级列表{% endblock %}
+{% block headmessage %}
 <ul>
     {% for class in AllClasses %}
         <li><a href="{{ class.id }}">{{ class.class_name }} 人数{{ class.stu_number }}</a></li>
 
     {% endfor %}
 </ul>
-</body>
-</html>
+{% endblock %}
