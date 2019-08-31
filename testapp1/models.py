@@ -8,12 +8,16 @@ DecimalField(max_digits=总位数，decimal_places=小数点后位数):小数
 DateField(auto_now=True记录最后一次修改,auto_now_add=True记录创建时间)
 FileField文件
 ImageField图片
+PostiveIntegerField正整数
 
 字段选项：
 db_column=''指定字段名，默认为属性名
 db_index=True 以此为索引
 primary_key=True 以此为主键
 unique=True 必须唯一
+null=True可接受null
+blank=True 可接受空白
+choices=一个元组  在元组内容中进行选择
 
 关系：
 ForeignKey：一对多，将字段放在多的端中

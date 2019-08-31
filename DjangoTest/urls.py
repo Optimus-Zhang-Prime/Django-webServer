@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 
+# django2.0一般不用正则
 urlpatterns = [
     url(r'^', include('testapp1.urls')),  # 转到app1的urls.py
     url('^admin/', admin.site.urls),  # 管理员

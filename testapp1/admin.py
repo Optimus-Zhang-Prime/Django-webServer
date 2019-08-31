@@ -25,5 +25,5 @@ class StudentsAdmin(admin.ModelAdmin):
     list_per_page = 5  # 每页五条
 
 
-admin.site.register(Classes, ClassesAdmin)  # 也可以用装饰器写
+admin.site.register(Classes, ClassesAdmin)  # 将该类加入到管理器中，也可以用装饰器写
 admin.site.register(Students, StudentsAdmin)
