@@ -54,8 +54,7 @@ ROOT_URLCONF = 'DjangoTest.urls'  # 根级url配置文件
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]  # 将Templates加来
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # 将Templates加来
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,7 +123,7 @@ STATIC_URL = '/static/'
 # 当运行 python manage.py collectstatic 的时候
 # STATIC_ROOT 文件夹 是用来将所有STATICFILES_DIRS中所有文件夹中的文件，以及各app中static中的文件都复制过来
 # 把这些文件放到一起是为了用apache等部署的时候更方便
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 # 这个是默认设置，Django 默认会在 STATICFILES_DIRS中的文件夹 和 各app下的static文件夹中找文件
 # 注意有先后顺序，找到了就不再继续找了
