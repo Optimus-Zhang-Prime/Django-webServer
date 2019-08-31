@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}写帖子{% endblock %}
+{% block headmessage %}
+<form name="post" action="/" method="get">
+    <input type="radio" name="category" value="情感">情感&nbsp
+    <input type="radio" name="category" value="生活">生活&nbsp
+    <input type="radio" name="category" value="技术">技术&nbsp
+    <input type="radio" name="category" value="新闻">新闻&nbsp
+    <input type="radio" name="category" value="幽默">幽默&nbsp
+    <input type="radio" name="category" value="其它">其它&nbsp
+    <br/>
+    发帖内容：
+    <textarea name="message" rows=4 cols=70></textarea>
+    <br/>
+    <label for="nick_name">发帖昵称</label>
+    <input id="nick_name" type="text" name="nick_name">
+    <label for="del_pwd">用于删帖的密码</label>
+    <input id="del_pwd" type="password" name="del_pwd">
+    <input type="submit" value="发送">
+    <input type="reset" value="重填">
+</form>
+{% endblock %}
