@@ -30,7 +30,8 @@ def write(request):
         ans = '请输入所有信息'
     return render(request, 'writeMessage.html', {"answer": ans, "quote": quote})
 
-
+def homePage(request):
+    return render(request, "homePage.html")
 def read(request):
     quote = choice(quotes)
     allPost = models.Post.objects.all().filter(enable=True).order_by('-time')[:30]
@@ -41,10 +42,11 @@ def read(request):
         ans = models.Post.objects.all().filter(enable=True).order_by('-time').filter(category=cate)[:30]
     except:
         pass
-    return render(request, "readMessage.html", {"allPost":ans})
+    return render(request, "readMessage.html", {"allPost":ans,"quote":quote})
 
 
 def dele(request, id):
+    quote = choice(quotes)
     postToDele = models.Post.objects.get(pk=id)
     try:
         pwd = request.GET['pwd']
@@ -55,4 +57,4 @@ def dele(request, id):
             ans = "密码错误"
     except:
         ans = "请输入正确的密码"
-    return render(request, "deleMessage.html", {"postToDele": postToDele, "answer": ans})
+    return render(request, "deleMessage.html", {"postToDele": postToDele, "answer": ans,"quote":quote})

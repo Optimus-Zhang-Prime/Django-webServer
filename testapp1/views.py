@@ -17,8 +17,7 @@ quotes = ['真理惟一可靠的标准就是永远自相符合。 —— 欧文'
           '文明就是要造成有修养的人。 —— 罗斯金']
 
 # 以下各函数在urls.py中使用
-def homePage(request):
-    return render(request, "homePage.html")
+
 
 
 def showClasses(request):

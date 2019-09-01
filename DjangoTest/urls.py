@@ -1,3 +1,4 @@
+
 # url声明
 """DjangoTest URL Configuration
 
@@ -16,9 +17,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
-
+from message_board import views
 # django2.0一般不用正则
 urlpatterns = [
+    url(r'^$',views.homePage),
     url(r'^school/', include('testapp1.urls')),  # 转到app1的urls.py
     url(r'^message/', include('message_board.urls')),  # 转到message_board的urls.py
     url(r'^admin/', admin.site.urls),  # 管理员
