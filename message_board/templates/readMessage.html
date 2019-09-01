@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}写帖子{% endblock %}
+{% block headmessage %}
+
+    <form name="post" action="writeMessage.html" method="get">
+        <input type="radio" name="category" value="情感">情感&nbsp
+        <input type="radio" name="category" value="生活">生活&nbsp
+        <input type="radio" name="category" value="技术">技术&nbsp
+        <input type="radio" name="category" value="新闻">新闻&nbsp
+        <input type="radio" name="category" value="幽默">幽默&nbsp
+        <input type="radio" name="category" value="其它">其它&nbsp
+        <input type="submit" value="查看">
+        <a href="../write" class="large">&nbsp;&nbsp;我要发帖</a><br>
+    </form>
+
+    <br>
+    <div class="row">
+        {% for apost in allPost %}
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        {{ apost.nickname }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类别：{{ apost.category }}
+                    </div>
+                    <div class="panel-body">
+                        {{ apost.message|linebreaks }}
+                    </div>
+                    <div class="panel-footer" align="right">
+                        <i>
+                            <small>{{ apost.time }}</small>
+                            <a href='../delete/{{ apost.id }}/'>删除</a>
+                        </i>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="row">
+        {% for apost0 in post0 %}
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    {{ apost0.nickname }}
+                </div>
+                <div class="panel-body">
+                    {{ apost0.message|linebreaks }}
+                </div>
+                <div class="panel-footer" align="right">
+                    <i>
+                        <small>{{ apost0.time }}</small>
+                    </i>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

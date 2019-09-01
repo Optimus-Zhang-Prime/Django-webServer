@@ -23,8 +23,8 @@ def homePage(request):
 
 def showClasses(request):
     classList = Classes.classobj.all()
-    aquote=choice(quotes)
-    return render(request, "allClasses.html", {"AllClasses": classList, "quote":aquote})
+    quote=choice(quotes)
+    return render(request, "allClasses.html", {"AllClasses": classList, "quote":quote})
 
 
 def showStudents(request, page):

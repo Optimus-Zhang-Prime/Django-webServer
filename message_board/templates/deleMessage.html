@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}写帖子{% endblock %}
+{% block headmessage %}
+
+    <form name="post" action="writeMessage.html" method="get">
+        <label for="pwd">删帖密码</label>
+        <input id="pwd" type="password" name="pwd">
+        <input type="submit" value="删除">
+    </form>
+    {% if answer %}<div class="alert alert-warning">{{ answer }}</div>{% endif %}
+    <a href="../read/">返回</a>
+{% endblock %}
