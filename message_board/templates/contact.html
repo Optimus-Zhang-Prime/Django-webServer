@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}写帖子{% endblock %}
+{% block headmessage %}
+    <div class="container">
+        <div class="panel panel-primary">
+            <form name="contactForm" action='.' method="post">
+                <div class="panel-heading">
+                    {% csrf_token %}<!--配合Django的安全机制-->
+                    <h3>为本站提供建议,您的宝贵建议将被发送到站主邮箱</h3>
+                </div>
+                <div class="panel-body">
+                    {{ form.as_p }}
+                </div>
+                <div class="panel-footer">
+                    <input type="submit" value="提交">
+                </div>
+            </form>
+        </div>
+{% if ans %}<div class="alert-warning">{{ ans }}</div>{% endif %}
+    </div>
+{% endblock %}

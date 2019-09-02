@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [re_path('write/', views.write),
                re_path('delete(\d+)/', views.dele),
                re_path('read/', views.read),
+               re_path('contact/',views.contact),
                ]
