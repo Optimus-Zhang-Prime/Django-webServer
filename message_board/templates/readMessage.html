@@ -7,6 +7,11 @@
             font-family: 黑体;
             font-weight:bold;
         }
+    .row{overflow: hidden;}
+    [class*="col-"]{
+        margin-bottom: -99999px;
+        padding-bottom: 99999px;
+    }
     </style>
     <form name="post" action="writeMessage.html" method="get">
         <input type="radio" name="category" value="情感">情感&nbsp
@@ -38,7 +43,9 @@
                     </div>
                 </div>
             </div>
+
         {% endfor %}
+
     </div>
 
 

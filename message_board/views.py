@@ -1,4 +1,4 @@
-from . import models
+from . import models,form
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -58,3 +58,5 @@ def dele(request, id):
     except:
         ans = "请输入正确的密码"
     return render(request, "deleMessage.html", {"postToDele": postToDele, "answer": ans,"quote":quote})
+
+def contact(request):
