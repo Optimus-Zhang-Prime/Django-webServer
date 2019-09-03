@@ -33,6 +33,7 @@ def sendEmail(name, email, work, message):
 
 def write(request):
     quote = choice(quotes)
+
     try:
         anickname = request.GET['nick_name']
         acategory = request.GET['category']
@@ -48,6 +49,7 @@ def write(request):
 
 def homePage(request):
     quote = choice(quotes)
+
     return render(request, "homePage.html", {"quote": quote})
 
 

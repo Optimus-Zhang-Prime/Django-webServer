@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'testapp1',  # 自己改的
-    'message_board'
+    'message_board',
+    'captcha'#验证码
 ]
 
 MIDDLEWARE = [
