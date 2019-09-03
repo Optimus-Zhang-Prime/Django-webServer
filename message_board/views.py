@@ -48,7 +48,7 @@ def write(request):
 
 def homePage(request):
     quote = choice(quotes)
-    return render(request, "homePage.html",{"quote":quote})
+    return render(request, "homePage.html", {"quote": quote})
 
 
 def read(request):
@@ -84,7 +84,7 @@ def contact(request):
     quote = choice(quotes)
     if request.method == "POST":
         form = forms.Contactform(request.POST)
-        if form.is_valid():
+        if form.is_valid():  # 检查窗口正确性
             ans = "感谢您的建议，已将建议内容发送到站主邮箱。"
             name = form.cleaned_data['user_name']
             work = form.cleaned_data['user_work']
@@ -98,4 +98,4 @@ def contact(request):
             ans = "请输入完整信息"
     else:
         form = forms.Contactform()
-    return render(request, 'contact.html', {"form": form, "ans": ans,"quote":quote})
+    return render(request, 'contact.html', {"form": form, "ans": ans, "quote": quote})
