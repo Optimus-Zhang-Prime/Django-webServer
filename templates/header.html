@@ -1,5 +1,24 @@
 {% load staticfiles %}
+<style>
+    .a1 {
+        font-size: 50px;
+        font-family: 黑体;
+        font-weight: bold;
+    }
+
+    .a2 {
+        font-size: 40px;
+    }
+</style>
 <div class="well">
     <img alt="logo" src="{% static "testapp1/images/logo.jpg" %}" height="80" align="left" title="logo">
-    <h1 style='font-family:微软雅黑;'>&nbsp&nbsp邹汉章的Django网站</h1>
+    <big class="a1">&nbsp&nbsp邹汉章的Django网站&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</big>
+
+    {% if username %}
+        <a href="/logout" class="a2">退出登录</a>
+    {% else %}
+        <a href="/login" class="a1">登录&nbsp/</a>
+        <a href="/accounts/register" class="a1">&nbsp注册</a>
+    {% endif %}
+
 </div>

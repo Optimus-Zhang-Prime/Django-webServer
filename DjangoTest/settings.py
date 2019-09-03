@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'testapp1',  # 自己改的
     'message_board',
-    'captcha'#验证码
+    'captcha',  # 验证码
+    'registration'  # 用户注册
 ]
+
+ACCOUNT_ACTIVATION_DAYS = 7
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +59,8 @@ ROOT_URLCONF = 'DjangoTest.urls'  # 根级url配置文件
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),os.path.join(BASE_DIR, 'message_board/templates')], # 将Templates加来
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'message_board/templates')],
+        # 将Templates加来
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
