@@ -85,7 +85,7 @@ def contact(request):
     ans = None
     quote = choice(quotes)
     if request.method == "POST":
-        form = forms.Contactform(request.POST)
+        form = forms.ContactForm(request.POST)
         if form.is_valid():  # 检查窗口正确性
             ans = "感谢您的建议，已将建议内容发送到站主邮箱。"
             name = form.cleaned_data['user_name']
@@ -99,5 +99,5 @@ def contact(request):
         else:
             ans = "请输入完整信息"
     else:
-        form = forms.Contactform()
+        form = forms.ContactForm()
     return render(request, 'contact.html', {"form": form, "ans": ans, "quote": quote})
