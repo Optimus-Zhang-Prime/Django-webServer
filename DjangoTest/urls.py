@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^message/', include('message_board.urls')),  # 转到message_board的urls.py
     url(r'^admin/', admin.site.urls),  # 管理员
     url(r'^captcha/',include('captcha.urls')),
+    url('login/',views.login),
     url('accounts/',include('registration.backends.default.urls'))
 ]

@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}hello{% endblock %}
 {% block headmessage %}
+    <style type="text/css">
+    .alert.alert-warning{
+        width: 500px;
+    }
+</style>
 <div class="container">
 {% if message %}
 <div class="alert alert-warning">{{ message }}</div>
 {% endif %}
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading" align="center">
                 <h3>欢迎登陆</h3>
@@ -17,7 +22,7 @@
 <form action="." method="post">
     {% csrf_token %}
     <table>
-        {{ login_form.as_table }}
+        {{ login_form.as_p }}
     </table>
     <input type="submit" value="提交">
 </form>

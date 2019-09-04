@@ -17,7 +17,7 @@ class Post(models.Model):
 class User(models.Model):
     name = models.CharField(max_length=30, null=False)
     email = models.EmailField(unique=True)
-    gender = models.CharField(choices=('男', '女'))
+    gender = models.CharField(choices=(('男','m'), ('女','w')),max_length=2)
     password = models.CharField(max_length=30, null=False)
     enable = models.BooleanField(default=True)
 

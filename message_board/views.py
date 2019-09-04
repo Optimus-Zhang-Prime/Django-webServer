@@ -1,7 +1,7 @@
 from . import models, forms
 # Create your views here.
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from random import choice
 import smtplib
 from email.mime.text import MIMEText
@@ -49,8 +49,9 @@ def write(request):
 
 def homePage(request):
     quote = choice(quotes)
-
-    return render(request, "homePage.html", {"quote": quote})
+    if 'username' in request.session:
+        username=request.session['username']
+    return render(request, "homePage.html", locals())
 
 
 def read(request):
@@ -81,7 +82,7 @@ def dele(request, id):
     return render(request, "deleMessage.html", {"postToDele": postToDele, "answer": ans, "quote": quote})
 
 
-def contact(request):
+def contact(request):  # 发邮件到站主邮箱
     ans = None
     quote = choice(quotes)
     if request.method == "POST":
@@ -101,3 +102,26 @@ def contact(request):
     else:
         form = forms.ContactForm()
     return render(request, 'contact.html', {"form": form, "ans": ans, "quote": quote})
+
+
+def login(request):
+    quote = choice(quotes)
+    if request.method == "POST":
+        login_form = forms.LoginForm(request.POST)
+        if login_form.is_valid():
+            email = request.POST['email']
+            password = request.POST['password']
+            try:
+                user = models.User.objects.get(email=email)
+                if password == user.password:
+                    request.session['username'] = user.name
+                    return redirect('/')
+                else:
+                    message = "密码输入错误"
+            except:
+                message = "找不到该用户"
+        else:
+            message = "请输入有效账户"
+    else:
+        login_form = forms.LoginForm()
+    return render(request, "login.html",locals())
