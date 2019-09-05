@@ -1,6 +1,8 @@
 <!-- base.html -->
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
+
 <head>
     <meta charset='utf-8'>
     <title>
@@ -24,11 +26,11 @@
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
 </head>
-<body>
+<body style=" background-image: url({% static "message_board/image/bkg.jpg" %});background-repeat: repeat-x ;background-size: 1600px">
 <div class='container-fluid'>
     {% include 'header.html' %}
-    <div  class='row' aria-setsize="">
-        <div class='col-sm-4 col-md-3'><!--横向共12个格子-->
+    <div class='row' aria-setsize="">
+        <div class='col-md-3'><!--横向共12个格子-->
             <div class='panel panel-default'>
                 <div class='panel-heading'>
                     <h3>

@@ -1,6 +1,6 @@
 {% block footer %}
-    <div style="position: fixed; bottom:0;font-size: large;left: 10%">
-        <a style="font-family: 隶书;" >名人名言：{{ quote }}&nbsp&nbsp&nbsp&nbsp</a>
-        <small style="font-family: 微软雅黑;">站长邮箱：zouhanzhang666@163.com</small>
+    {% load staticfiles %}
+    <div style="position: fixed; bottom:0;left: 20%;background-color:	#ADD8E6;">
+        <small style="font-family: 隶书;color:black;font-size:20px;">名人名言：{{ quote }}&nbsp&nbsp&nbsp&nbsp</small>
     </div>
 {% endblock %}
