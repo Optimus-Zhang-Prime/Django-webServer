@@ -9,7 +9,7 @@
 
     function l() {
         var i = j("script"), w = i.length, v = i[w - 1];
-        return {l: w, z: o(v, "zIndex", -1), o: o(v, "opacity", 0.5), c: o(v, "color", "0,0,0"), n: o(v, "count", 99)}
+        return {l: w, z: o(v, "zIndex", -1), o: o(v, "opacity", 0.9), c: o(v, "color", "0,0,0"), n: o(v, "count", 99)}
     }
 
     function k() {
@@ -26,7 +26,7 @@
                 x = w[v];
                 if (i !== x && null !== x.x && null !== x.y) {
                     B = i.x - x.x, z = i.y - x.y, y = B * B + z * z;
-                    y < x.max && (x === f && y >= x.max / 2 && (i.x -= 0.03 * B, i.y -= 0.03 * z), A = (x.max - y) / x.max, e.beginPath(), e.lineWidth = A / 2, e.strokeStyle = "rgba(" + s.c + "," + (A + 0.2) + ")", e.moveTo(i.x, i.y), e.lineTo(x.x, x.y), e.stroke())
+                    y < x.max && (x === f && y >= x.max / 2 && (i.x -= 0.03 * B, i.y -= 0.03 * z), A = (x.max - y) / x.max, e.beginPath(), e.lineWidth = A/2 , e.strokeStyle = "rgba(" + s.c + "," + (A + 0.2) + ")", e.moveTo(i.x, i.y), e.lineTo(x.x, x.y), e.stroke())
                 }
             }
             w.splice(w.indexOf(i), 1)

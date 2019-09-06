@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}写帖子{% endblock %}
+{% load staticfiles %}
+{% block title %}发帖{% endblock %}
 {% block headmessage %}
 <form name="post" action="writeMessage.html" method="get">
     <input type="radio" name="category" value="情感">情感&nbsp
@@ -20,5 +21,5 @@
     <input  type="reset" value="重填">
 </form>
     {% if answer %}<div class="alert alert-warning">{{ answer }}</div>{% endif %}
-    <a href="../read/">看帖</a>
+    <a href="../read/"><img src="{% static "message_board/image/watch.png" %}" height="50px">看帖</a>
 {% endblock %}

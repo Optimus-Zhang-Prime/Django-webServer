@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}写帖子{% endblock %}
-{% block headmessage %}
-    <div class="container">
-        <div class="panel panel-primary">
+{% block title %}联系站主{% endblock %}
+{% block content %}
+
+        <div class="panel panel-primary" >
             <form name="ContactForm" action='.' method="post">
                 <div class="panel-heading">
                     {% csrf_token %}<!--配合Django的安全机制-->
@@ -16,6 +16,7 @@
                 </div>
             </form>
         </div>
-{% if ans %}<div class="alert-warning">{{ ans }}</div>{% endif %}
-    </div>
+        {% if ans %}
+            <div class="alert-warning">{{ ans }}</div>{% endif %}
+
 {% endblock %}

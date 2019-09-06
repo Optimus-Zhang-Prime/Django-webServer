@@ -2,13 +2,21 @@
 {% block title %}hello{% endblock %}
 {% block headmessage %}
     <style>
-    .a1{font-size: 30px;font-family: 黑体}
-    .a2{font-size: 20px;font-family: 华文行楷}
+        .a1 {
+            font-size: 30px;
+            font-family: 黑体
+        }
+
+        .a2 {
+            font-size: 20px;
+            font-family: 华文行楷
+        }
     </style>
     {% if username %}欢迎：{{ username }}{% endif %}
     <h1>网站功能：</h1><br>
-<a href="./message/read/" class="a1">1.网友留言板</a><br>
-<a href="./school/allclasses/" class="a1">2.学生管理系统</a><br><br>
-<a href="./message/contact/" class="a2">欢迎您为本站提供建议</a>
-    {% if ans %}<div class="alert-warning">{{ ans }}</div>{% endif %}
+    <a href="./message/read/" class="a1">1.网友留言板</a><br>
+    <a href="./message/contact/" class="a1">2.联系站主</a><br><br>
+    <a href="./school/allclasses/" class="a2">测试功能(开发中)</a>
+    {% if ans %}
+        <div class="alert-warning">{{ ans }}</div>{% endif %}
 {% endblock %}

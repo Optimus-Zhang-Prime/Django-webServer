@@ -28,7 +28,50 @@
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
 </head>
-<body style=" background-image: url({% static "message_board/image/bkg.jpg" %});background-repeat: repeat-x ;background-size: 1600px">
+<body style=" background-image: url({% static "message_board/image/bkg.jpg" %});background-repeat: repeat-x ;background-size: 1600px;background-attachment: fixed">
+
+<!--小火箭-->
+<style>
+#back-top {
+     position: fixed;
+     bottom: 10px;
+     right: 5px;
+     z-index: 99;
+}
+#back-top span {
+     width: 50px;
+     height: 64px;
+     display: block;
+     background:url({% static "message_board/image/rocket.png" %}) no-repeat center center;
+}
+#back-top a{outline:none}
+</style>
+<script type="text/javascript">
+$(function() {
+	// hide #back-top first
+	$("#back-top").hide();
+	// fade in #back-top
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 50) {
+			$('#back-top').fadeIn();
+		} else {
+			$('#back-top').fadeOut();
+		}
+	});
+	// scroll body to 0px on click
+	$('#back-top a').click(function() {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 500);
+		return false;
+	});
+});
+</script>
+<p id="back-top" style="display:none"><a href="#top"><span></span></a></p>
+    </div>
+
+
+
 <div class='container-fluid'>
     {% include 'header.html' %}
     <div class='row' aria-setsize="" style="position: absolute;top:125px;width: 100%">
@@ -42,8 +85,8 @@
                 <div class='panel-body'>
                     <div class='list-group'>
                         <a href='/' class='list-group-item'>本站首页</a>
-                        <a href='https://zouhanzhang666.github.io' class='list-group-item'>邹汉章的个人主页</a>
-                        <a href='http://drho.tw/news' class='list-group-item'>电视新闻</a>
+                        <a href='https://zouhanzhang666.github.io' class='list-group-item'>站主的个人主页</a>
+                        <a href='../../admin/' class='list-group-item'>网站管理</a>
                     </div>
                 </div>
             </div>

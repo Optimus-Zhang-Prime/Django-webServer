@@ -5,6 +5,9 @@ from django.shortcuts import render, redirect
 from random import choice
 import smtplib
 from email.mime.text import MIMEText
+from django.contrib.auth import authenticate  # 用户验证
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 quotes = ['真理惟一可靠的标准就是永远自相符合。 —— 欧文',
           '忠诚可以简练地定义为对不可能的情况的一种不合逻辑的信仰。 —— 门肯',
@@ -50,7 +53,7 @@ def write(request):
 def homePage(request):
     quote = choice(quotes)
     if 'username' in request.session:
-        username=request.session['username']
+        username = request.session['username']
     return render(request, "homePage.html", locals())
 
 
@@ -112,7 +115,7 @@ def login(request):
             email = request.POST['email']
             password = request.POST['password']
             try:
-                user = models.User.objects.get(email=email)
+                user = authenticate(email=email,password=password)
                 if password == user.password:
                     request.session['username'] = user.name
                     return redirect('/')
@@ -124,4 +127,4 @@ def login(request):
             message = "请输入有效账户"
     else:
         login_form = forms.LoginForm()
-    return render(request, "login.html",locals())
+    return render(request, "login.html", locals())

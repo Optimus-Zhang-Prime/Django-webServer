@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}写帖子{% endblock %}
+{% load staticfiles %}
+{% block title %}看帖{% endblock %}
 {% block headmessage %}
     <style>
         .a1 {
@@ -8,7 +9,7 @@
             font-weight: bold;
         }
     </style>
-    <form name="post" action="../message_board/templates/writeMessage.html" method="get">
+    <form name="post" action="writeMessage.html" method="get">
         <input type="radio" name="category" value="情感">情感&nbsp
         <input type="radio" name="category" value="生活">生活&nbsp
         <input type="radio" name="category" value="技术">技术&nbsp
@@ -16,7 +17,9 @@
         <input type="radio" name="category" value="幽默">幽默&nbsp
         <input type="radio" name="category" value="其它">其它&nbsp
         <input type="submit" value="查看">&nbsp;&nbsp;&nbsp&nbsp;&nbsp;
-        <a href="../write" class="a1">我要发帖</a><br>
+        <a href="../write" class="a1">我要发帖</a>&nbsp
+        <a href="../write"><img src="{% static "message_board/image/write.png" %} "  height=55px></a><br><br>
+
     </form>
 
     <br>
