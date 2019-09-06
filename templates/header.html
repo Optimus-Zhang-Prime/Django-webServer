@@ -6,8 +6,11 @@
     <big style="font-size: 40px">&nbsp&nbsp邹汉章的网站</big>
     <div style="position: absolute;right: 15%;top: 30px">
         {% if username %}
+            <p>欢迎：{{ username }}</p>
             <img src="{% static 'message_board/image/user2.png' %} " height="40" style="position:absolute;top:1px;right:180px">
-            <a href="/logout" style="font-size: 30px">退出登录</a>
+
+            <a href="message/logout/" style="font-size: 30px">退出登录</a>
+
         {% else %}
             <img src="{% static 'message_board/image/user.png' %} " height="40" style="position:absolute;top:1px;right:180px">
             <a href="/login" style="font-size: 30px">登录&nbsp/</a>

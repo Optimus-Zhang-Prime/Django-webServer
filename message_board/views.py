@@ -8,6 +8,7 @@ from email.mime.text import MIMEText
 from django.contrib.auth import authenticate  # 用户验证
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 quotes = ['真理惟一可靠的标准就是永远自相符合。 —— 欧文',
           '忠诚可以简练地定义为对不可能的情况的一种不合逻辑的信仰。 —— 门肯',
@@ -52,8 +53,9 @@ def write(request):
 
 def homePage(request):
     quote = choice(quotes)
-    if 'username' in request.session:
-        username = request.session['username']
+    if request.user.is_authenticated:
+        username = request.user.username
+    messages.get_messages(request)
     return render(request, "homePage.html", locals())
 
 
@@ -114,17 +116,25 @@ def login(request):
         if login_form.is_valid():
             email = request.POST['email']
             password = request.POST['password']
-            try:
-                user = authenticate(email=email,password=password)
-                if password == user.password:
-                    request.session['username'] = user.name
+            user = authenticate(email=email, password=password)
+            if user is not None:
+                if user.is_active:
+                    auth.login(request, user)
+                    messages.add_message(request, messages.SUCCESS, '登录成功')
                     return redirect('/')
                 else:
-                    message = "密码输入错误"
-            except:
-                message = "找不到该用户"
+                    messages.add_message(request, messages.WARNING, '账号未启用')
+            else:
+                messages.add_message(request, messages.WARNING, '登陆失败,请确认账户密码正确')
         else:
-            message = "请输入有效账户"
+            messages.add_message(request, messages.INFO, '请输入完整有效的信息')
+
     else:
         login_form = forms.LoginForm()
     return render(request, "login.html", locals())
+
+
+def logout(request):
+    auth.logout(request)
+    messages.add_message(request, messages.INFO, "退出登录成功")
+    return redirect("/login/")
