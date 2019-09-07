@@ -11,5 +11,5 @@ class ContactForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label='邮箱')
+    username = forms.CharField(label="用户名")
     password = forms.CharField(label="密码", widget=forms.PasswordInput)

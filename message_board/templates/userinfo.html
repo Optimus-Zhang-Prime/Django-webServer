@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}hello{% endblock %}
+{% block content %}
+    <div class="container" style="width: 80%">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                        <h3>用户信息</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" >
+                <div class="panel panel-primary">
+                    <div class="panel-heading" align="center">
+                        {{ username }}
+                    </div>
+                    <div class="panel panel-body">
+                        电子邮件：{{ user.email }}<br/>
+                        {% if userinfo.gender == True %}
+                            性别：男<br/>
+                        {% elif userinfo.gender == False %}
+                            性别：女<br/>
+                        {% endif %}
+                        个性签名：{{ userinfo.signature }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -4,17 +4,18 @@
     <img alt="logo" style="left: 1px;top: 1px;" src="{% static "testapp1/images/logo.jpg" %}" height="60" align="left"
          title="logo">
     <big style="font-size: 40px">&nbsp&nbsp邹汉章的网站</big>
-    <div style="position: absolute;right: 15%;top: 30px">
+    <div style="position: absolute;left: 40%;right: 10%;top: 30px">
         {% if username %}
-            <p>欢迎：{{ username }}</p>
-            <img src="{% static 'message_board/image/user2.png' %} " height="40" style="position:absolute;top:1px;right:180px">
+            <b style="font-size: 30px">欢迎：{{ username }}</b>
+            <img src="{% static 'message_board/image/user2.png' %} " height="40" style="position:absolute;top:1px;right:220px">
+            <a href="../message/userinfo/" style="font-size: 25px;position:absolute;top:1px;right:120px">我的信息</a>
+            <a href="../message/logout/" style="font-size: 25px;position:absolute;top:1px;right:10px">退出登录</a>
 
-            <a href="message/logout/" style="font-size: 30px">退出登录</a>
 
         {% else %}
-            <img src="{% static 'message_board/image/user.png' %} " height="40" style="position:absolute;top:1px;right:180px">
-            <a href="/login" style="font-size: 30px">登录&nbsp/</a>
-            <a href="/accounts/register" style="font-size: 30px">&nbsp注册</a>
+            <img src="{% static 'message_board/image/user.png' %} " height="40" style="position:absolute;top:1px;right:220px">
+            <a href="../login" style="font-size: 25px;position:absolute;top:1px;right:120px">登录&nbsp/</a>
+            <a href="../accounts/register" style="font-size: 25px;position:absolute;top:1px;right:60px">&nbsp注册</a>
         {% endif %}
     </div>
 </div>

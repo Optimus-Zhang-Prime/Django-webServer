@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Post(models.Model):
@@ -14,12 +15,12 @@ class Post(models.Model):
         return self.message
 
 
-class User(models.Model):
-    name = models.CharField(max_length=30, null=False)
-    email = models.EmailField(unique=True)
-    gender = models.CharField(choices=(('男','m'), ('女','w')),max_length=2)
-    password = models.CharField(max_length=30, null=False)
+class Profile(models.Model):  # 用户信息
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    gender = models.BooleanField(null=True)
+    signature = models.CharField(max_length=100)
+    work = models.CharField(max_length=30, null=True)
     enable = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username

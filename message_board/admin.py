@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, User
+from .models import Post, Profile
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -11,5 +11,9 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'gender', 'password', 'enable')
 
 
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'gender', 'signature', 'work', 'enable')
+
+
 admin.site.register(Post, PostAdmin)
-admin.site.register(User, UserAdmin)
+admin.site.register(Profile,ProfileAdmin)

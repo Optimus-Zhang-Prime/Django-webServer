@@ -1,0 +1,3 @@
+尊敬的{{user}}:
+请点击下方网址激活您的账户：
+http://{{site}}/accounts/activate/{{activation_key}}

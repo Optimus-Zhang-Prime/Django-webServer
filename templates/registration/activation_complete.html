@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}注册中{% endblock %}
+{% block content %}
+    <div class="container">
+        {% for messsage in messages %}
+            <div class="alert alert-{{ messsage.tags }}">{{ messsage }}</div>
+        {% endfor %}
+    <div class="row">
+        <div class="col-md-12" style="width: 80%">
+            <div class="panel panel-default">
+                <div class="panel-heading" align="center">
+                    <h3>账户激活成功！</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

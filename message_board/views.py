@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate  # 用户验证
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 quotes = ['真理惟一可靠的标准就是永远自相符合。 —— 欧文',
           '忠诚可以简练地定义为对不可能的情况的一种不合逻辑的信仰。 —— 门肯',
@@ -62,14 +63,15 @@ def homePage(request):
 def read(request):
     quote = choice(quotes)
     allPost = models.Post.objects.all().filter(enable=True).order_by('-time')[:30]
-
-    ans = allPost
+    if request.user.is_authenticated:
+        username = request.user.username
+    messages.get_messages(request)
     try:
         cate = request.GET['category']
         ans = models.Post.objects.all().filter(enable=True).order_by('-time').filter(category=cate)[:30]
     except:
         pass
-    return render(request, "readMessage.html", {"allPost": ans, "quote": quote})
+    return render(request, "readMessage.html", locals())
 
 
 def dele(request, id):
@@ -89,6 +91,8 @@ def dele(request, id):
 
 def contact(request):  # 发邮件到站主邮箱
     ans = None
+    if request.user.is_authenticated:
+        username = request.user.username
     quote = choice(quotes)
     if request.method == "POST":
         form = forms.ContactForm(request.POST)
@@ -106,7 +110,7 @@ def contact(request):  # 发邮件到站主邮箱
             ans = "请输入完整信息"
     else:
         form = forms.ContactForm()
-    return render(request, 'contact.html', {"form": form, "ans": ans, "quote": quote})
+    return render(request, 'contact.html', locals())
 
 
 def login(request):
@@ -114,9 +118,9 @@ def login(request):
     if request.method == "POST":
         login_form = forms.LoginForm(request.POST)
         if login_form.is_valid():
-            email = request.POST['email']
-            password = request.POST['password']
-            user = authenticate(email=email, password=password)
+            entername = request.POST['username']
+            enterpassword = request.POST['password']
+            user = authenticate(username=entername, password=enterpassword)
             if user is not None:
                 if user.is_active:
                     auth.login(request, user)
@@ -138,3 +142,16 @@ def logout(request):
     auth.logout(request)
     messages.add_message(request, messages.INFO, "退出登录成功")
     return redirect("/login/")
+
+
+@login_required(login_url='/login/')
+def userinfo(request):
+    quote = choice(quotes)
+    if request.user.is_authenticated:
+        username = request.user.username
+        try:
+            user = User.objects.get(usrname=username)
+            userinfo = models.Profile.objects.get(user=user)
+        except:
+            pass
+        return render(request, 'userinfo.html', locals())

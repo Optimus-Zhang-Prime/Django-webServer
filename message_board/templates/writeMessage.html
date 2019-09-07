@@ -3,6 +3,7 @@
 {% block title %}发帖{% endblock %}
 {% block headmessage %}
 <form name="post" action="writeMessage.html" method="get">
+{% csrf_token %}
     <input type="radio" name="category" value="情感">情感&nbsp
     <input type="radio" name="category" value="生活">生活&nbsp
     <input type="radio" name="category" value="技术">技术&nbsp

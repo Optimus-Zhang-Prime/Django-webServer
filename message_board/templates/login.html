@@ -14,9 +14,10 @@
                 </div>
             </div>
         </div>
-        <form action="." method="post">
-            {% csrf_token %}
+        <form action="../../templates" method="post">
+
             <table>
+                {% csrf_token %}
                 {{ login_form.as_p }}
             </table>
             <input type="submit" value="提交">
