@@ -12,23 +12,30 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" >
+            <div class="col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading" align="center">
                         {{ username }}
                     </div>
                     <div class="panel panel-body">
                         电子邮件：{{ user.email }}<br/>
-                        {% if userinfo.gender == True %}
-                            性别：男<br/>
-                        {% elif userinfo.gender == False %}
-                            性别：女<br/>
-                        {% endif %}
-                        个性签名：{{ userinfo.signature }}
+                        性别：{{ profile.gender|yesno:"男生,女生" }}<br/>
+                        个性签名：{{ profile.signature }}<br/>
                     </div>
                 </div>
             </div>
         </div>
+        {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="width: 300px">{{ message }}</div>
+            {% endfor %}
+        <form name="profile" action="." method="post">
+            <h3>修改个人资料：</h3><br>
+            {% csrf_token %}
+            <table>
+                {{ profile_form.as_p }}
+            </table>
+            <input type="submit" value="修改">
+        </form>
     </div>
 
 {% endblock %}

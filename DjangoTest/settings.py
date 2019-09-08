@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'registration'  # 用户注册
 ]
 
-ACCOUNT_ACTIVATION_DAYS = 7
+ACCOUNT_ACTIVATION_DAYS = 7  # 激活账号期限：7天
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -129,7 +129,7 @@ STATIC_URL = '/static/'
 # 当运行 python manage.py collectstatic 的时候
 # STATIC_ROOT 文件夹 是用来将所有STATICFILES_DIRS中所有文件夹中的文件，以及各app中static中的文件都复制过来
 # 把这些文件放到一起是为了用apache等部署的时候更方便
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static') ]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # 这个是默认设置，Django 默认会在 STATICFILES_DIRS中的文件夹 和 各app下的static文件夹中找文件
 # 注意有先后顺序，找到了就不再继续找了
@@ -137,3 +137,18 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 )
+
+# 邮件
+
+EMAIL_BCKEND='django.core.main.backends.smtp.EmailBackend'
+# 服务器地址
+EMAIL_HOST = 'smtp.163.com'
+# 端口，邮箱默认动态端口 25
+EMAIL_PORT = 25
+# 邮箱账号
+EMAIL_HOST_USER = 'zouhanzhang666@163.com'
+# 邮箱密码
+EMAIL_HOST_PASSWORD = 'Zouhan0903'
+# 发送的邮箱
+EMAIL_FROM = 'zouhanzhang666@163.com'
+DEFAULT_FROM_EMAIL='zouhanzhang666@163.com'

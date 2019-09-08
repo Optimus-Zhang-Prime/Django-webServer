@@ -21,7 +21,8 @@
         <a href="../write"><img src="{% static "message_board/image/write.png" %} "  height=55px></a><br><br>
 
     </form>
-
+{% endblock %}
+{% block content %}
     <br>
     <div class="col-md-12">
         {% for apost in allPost %}

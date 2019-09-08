@@ -1,6 +1,6 @@
 from . import models, forms
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render, redirect
 from random import choice
 import smtplib
@@ -10,6 +10,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
+
 
 quotes = ['真理惟一可靠的标准就是永远自相符合。 —— 欧文',
           '忠诚可以简练地定义为对不可能的情况的一种不合逻辑的信仰。 —— 门肯',
@@ -77,6 +78,8 @@ def read(request):
 def dele(request, id):
     quote = choice(quotes)
     postToDele = models.Post.objects.get(pk=id)
+    if request.user.is_authenticated:
+        username = request.user.username
     try:
         pwd = request.GET['pwd']
         if pwd == postToDele.del_pwd:
@@ -86,7 +89,7 @@ def dele(request, id):
             ans = "密码错误"
     except:
         ans = "请输入正确的密码"
-    return render(request, "deleMessage.html", {"postToDele": postToDele, "answer": ans, "quote": quote})
+    return render(request, "deleMessage.html", locals())
 
 
 def contact(request):  # 发邮件到站主邮箱
@@ -149,9 +152,19 @@ def userinfo(request):
     quote = choice(quotes)
     if request.user.is_authenticated:
         username = request.user.username
-        try:
-            user = User.objects.get(usrname=username)
-            userinfo = models.Profile.objects.get(user=user)
-        except:
-            pass
-        return render(request, 'userinfo.html', locals())
+    user = User.objects.get(username=username)
+    try:
+        profile = models.Profile.objects.get(user=user)
+    except:
+        profile = models.Profile(user=user)  # 如果数据库里没有就重新建一个
+    if request.method=="POST":
+        profile_form=forms.ProfileForm(request.POST,instance=profile)
+        if profile_form.is_valid():
+            messages.add_message(request,messages.INFO,"个人资料已储存")
+            profile_form.save()
+            return HttpResponseRedirect('../userinfo/')
+        else:
+            messages.add_message(request,messages.INFO,'请填入完整信息')
+    else:
+        profile_form=forms.ProfileForm()
+    return render(request, 'userinfo.html', locals())

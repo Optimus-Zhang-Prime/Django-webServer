@@ -16,6 +16,8 @@
         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
     {% endfor %}
     <h1>网站功能：</h1><br>
+{% endblock %}
+{% block content %}
     <a href="./message/read/" class="a1">1.网友留言板</a><br>
     <a href="./message/contact/" class="a1">2.联系站主</a><br><br>
     <a href="./school/allclasses/" class="a2">测试功能(开发中)</a>

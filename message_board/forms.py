@@ -1,5 +1,6 @@
 from django import forms
 from captcha.fields import CaptchaField
+from .models import Profile
 
 
 class ContactForm(forms.Form):
@@ -13,3 +14,15 @@ class ContactForm(forms.Form):
 class LoginForm(forms.Form):
     username = forms.CharField(label="用户名")
     password = forms.CharField(label="密码", widget=forms.PasswordInput)
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['gender', 'work', 'signature']
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['work'].label = "职业"
+        self.fields['gender'].label = "是男生吗"
+        self.fields['signature'].label = "个性签名"

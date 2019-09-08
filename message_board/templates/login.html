@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}hello{% endblock %}
+{% block title %}登录{% endblock %}
 {% block headmessage %}
     <div class="container">
         {% for message in messages %}
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <form action="../../templates" method="post">
+        <form action="." method="post">
 
             <table>
                 {% csrf_token %}
