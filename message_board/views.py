@@ -69,7 +69,7 @@ def read(request):
     messages.get_messages(request)
     try:
         cate = request.GET['category']
-        ans = models.Post.objects.all().filter(enable=True).order_by('-time').filter(category=cate)[:30]
+        allPost = models.Post.objects.all().filter(enable=True).order_by('-time').filter(category=cate)[:30]
     except:
         pass
     return render(request, "readMessage.html", locals())
