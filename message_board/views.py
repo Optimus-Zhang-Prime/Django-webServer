@@ -63,7 +63,8 @@ def homePage(request):
 
 def read(request):
     quote = choice(quotes)
-    allPost = models.Post.objects.all().filter(enable=True).order_by('-time')[:30]
+    allPost = models.Post.objects.all().filter(enable=True).order_by('-time')
+    allPost = allPost[:30]
     if request.user.is_authenticated:
         username = request.user.username
     messages.get_messages(request)
