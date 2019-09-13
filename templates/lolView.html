@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="zh" style="height: 100%">
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"
+        integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw="
+        crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+      integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<style>
+    .bk1 { /*最底层*/
+        background-image: url('background.jpeg');
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        background-position: 0;
+        z-index: -9;
+    }
+
+    .bk2 { /*次底层*/
+        background-image: url('矩形.png');
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        background-position: 0;
+        z-index:-8;
+    }
+
+    .bk3 { /* 中背景*/
+        background: rgba(216, 216, 216, 0.5);
+        filter: blur(27px);
+        z-index: -7
+    }
+
+    .bk4 { /*顶层背景*/
+        background-color: rgba(216, 216, 216, 0.3);
+        border: 1px solid rgba(151, 151, 151, 1);
+        z-index: -6;
+        filter:blur(0);
+    }
+
+    .word1 { /*大字*/
+        position: absolute;
+        left:8.5%;
+        width: 465px;
+        height: 36px;
+        font-size: 35px;
+        font-family: HiraginoSansGB, 宋体;
+        font-weight: normal;
+        color: #FFFFFF;
+
+    }
+
+    a:link {
+        text-decoration: none
+    }
+
+    a:visited {
+        text-decoration: none
+    }
+
+</style>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>英雄联盟电竞数据可视化系统</title>
+</head>
+<body class="bk1">
+<div class="bk2" >
+    <div style="position: absolute;top:5%;left: 15%;height: 10%;width: 70%">
+        <div style="position: absolute;width:546px;z-index: -2;background-image: url('header.png');left: 10%;height: 50px;">
+            <span class="word1">英雄联盟电竞数据可视化系统</span>
+        </div>
+        <div style="position: absolute;width:100px;background-color: #E6AB28;left: 70%;top: 15px;">
+            <a href="/" style="color: white;font-size: 24px">个人中心</a>
+        </div>
+        <div style="position: absolute;width:100px;background-color: #E6AB28;left: 80%;top: 15px;">
+            <a href="/" style="color: white;font-size: 24px">退出系统</a>
+        </div>
+    </div>
+    <div class="bk3" style="position: absolute;left: 10%;height:88%;width:80%;top: 15%;"></div>
+    <div class="bk4" style="position:absolute;top:16%;left: 15%;height: 25%;width: 70%">
+        <span><img class="img-circle" src="user.jpg" style="position: absolute;height: 80%;left: 2%;top:10%"></span>
+        <span class="word1" style="position: absolute;left: 20%;top: 30%">昵称</span>
+    </div>
+    <div class="bk4" style="position:absolute;width: 35%;left:15%;height: 55%;top:43%"></div>
+    <div class="bk4" style="position:absolute;width: 34%;left:51%;height: 55%;top:43%"></div>
+</div>
+</body>
+</html>
