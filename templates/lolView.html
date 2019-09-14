@@ -82,20 +82,20 @@
     }
 
 
-
     @media screen and (max-width: 960px) {
         /*手机端*/
         .word1 { /*大字*/
-        position: absolute;
-        left: 8.5%;
-        width: 465px;
-        height: 36px;
-        font-size: 25px;
-        font-family: HiraginoSansGB, 宋体;
-        font-weight: normal;
-        color: #FFFFFF;
+            position: absolute;
+            left: 5%;
+            width: 465px;
+            height: 36px;
+            font-size: 25px;
+            font-family: HiraginoSansGB, 宋体;
+            font-weight: normal;
+            color: #FFFFFF;
 
-    }
+        }
+
         .word2 { /* 小字*/
             font-size: 14px;
             font-family: HiraginoSansGB, 宋体;
@@ -125,27 +125,55 @@
             font-weight: normal;
             color: #FFFFFF;
         }
-        .word5{/*个人中心与退出系统*/
-            font-size: 12px;
-            font-family: HiraginoSansGB, 宋体;
+
+        .word5 { /*个人中心与退出系统*/
+            font-size: 13px;
             font-weight: normal;
             color: #FFFFFF;
+        }
+        .word6 {
+            color: white;
+            font-size: 20px;
+            width: 144px;
+        }
+
+        .header {
+            position: absolute;
+            width: 360px;
+            z-index: -2;
+            background-color: #FFA500;
+            height: 35px;
+        }
+        .geren{
+            position: absolute;background-color:rgba(202,143,4,1);left: 55%;top: 70%;
+        }
+        .tuichu{
+            position: absolute;background-color: rgba(202,143,4,1);left: 80%;top: 70%;
         }
     }
 
     @media screen and (min-width: 960px) {
         /* 电脑端CSS代码 */
-        .word1 { /*大字*/
-        position: absolute;
-        left: 8.5%;
-        width: 465px;
-        height: 36px;
-        font-size: 35px;
-        font-family: HiraginoSansGB, 宋体;
-        font-weight: normal;
-        color: #FFFFFF;
+        .header {
+            position: absolute;
+            width: 546px;
+            z-index: -2;
+            background-image: url('header.png');
+            height: 51px;
+        }
 
-    }
+        .word1 { /*大字*/
+            position: absolute;
+            left: 8.5%;
+            width: 465px;
+            height: 36px;
+            font-size: 35px;
+            font-family: HiraginoSansGB, 宋体;
+            font-weight: normal;
+            color: #FFFFFF;
+
+        }
+
         .word2 { /* 小字*/
             font-size: 16px;
             font-family: HiraginoSansGB, 宋体;
@@ -154,7 +182,8 @@
             line-height: 40px;
 
         }
-         .word3 { /*昵称用字*/
+
+        .word3 { /*昵称用字*/
             position: absolute;
             left: 20%;
             top: 30%;
@@ -164,6 +193,7 @@
             color: #FFFFFF;
 
         }
+
         .word4 { /*简介用字*/
             position: absolute;
             left: 20%;
@@ -173,13 +203,24 @@
             font-weight: normal;
             color: #FFFFFF;
         }
-        .word5{/*个人中心与退出系统*/
+
+        .word5 { /*个人中心与退出系统*/
             font-size: 25px;
-            font-family: HiraginoSansGB, 宋体;
             font-weight: normal;
             color: #FFFFFF;
         }
 
+        .word6 {
+            color: white;
+            font-size: 24px;
+            width: 144px
+        }
+        .geren{
+            position: absolute;background-color:rgba(202,143,4,1);left: 70%;top: 60%;
+        }
+        .tuichu{
+            position: absolute;background-color: rgba(202,143,4,1);left: 81%;top: 60%;
+        }
     }
 
 
@@ -201,13 +242,13 @@
 <body class="bk1">
 <div class="bk2">
     <div style="position: absolute;top:2%;left: 15%;height: 13%;width: 70%;">
-        <div style="position: absolute;width:546px;z-index: -2;background-image: url('header.png');height: 51px;">
+        <div class="header">
             <span class="word1">英雄联盟电竞数据可视化系统</span>
         </div>
-        <div style="position: absolute;background-color:#FFA500;left: 65%;top: 60%;">
+        <div class="geren">
             <a href="/" class="word5">个人中心</a>
         </div>
-        <div style="position: absolute;background-color: #FFA500;left: 80%;top: 60%;">
+        <div class="tuichu">
             <a href="/" class="word5">退出系统</a>
         </div>
     </div>
@@ -218,8 +259,8 @@
         <span class="word4">简介简介简介简介简介简介</span>
     </div>
     <div class="bk4" style="position:relative;width: 35%;left:15%;height: 55%;top:43%;">
-        <div style="position: absolute;background-color:#FFA500;top: 25%;left: 50%;margin: -72px">
-            <span style="color: white;font-size: 24px;width:144px">历史观看场次</span>
+        <div style="position: absolute;background-color:rgba(202,143,4,1);top: 25%;left: 50%;margin: -60px">
+            <span class="word6">&nbsp历史观看场次&nbsp</span>
         </div>
         <div class="test-1" style="position:absolute;width:80%;height:70%;top:20%;left: 10%;overflow:auto;">
             <span class="word2">时间</span>&nbsp;<span class="word2">场次名称</span><br>
@@ -235,8 +276,8 @@
         </div>
     </div>
     <div class="bk4" style="position:absolute;width: 34%;left:51%;height: 55%;top:43%">
-        <div style="position: absolute;background-color:#FFA500;top: 25%;left: 50%;margin: -72px;">
-            <span style="color: white;font-size: 24px">我的场次报告</span>
+        <div style="position: absolute;background-color:rgba(202,143,4,1);top: 25%;left: 50%;margin: -60px;">
+            <span class="word6">&nbsp我的场次报告&nbsp</span>
         </div>
         <div class="test-1" style="position:absolute;width:80%;height:70%;top:20%;left: 10%;overflow:auto;">
             <span class="word2">时间</span>&nbsp;<span class="word2">场次名称</span><br>

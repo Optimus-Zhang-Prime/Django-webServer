@@ -60,6 +60,8 @@ def homePage(request):
     messages.get_messages(request)
     return render(request, "homePage.html", locals())
 
+def lol(request):
+    return render(request,"lolView.html")
 
 def read(request):
     quote = choice(quotes)
