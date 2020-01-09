@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}hello{% endblock %}
+{% block headmessage %}
+    <style>
+        .a1 {
+            font-size: 30px;
+            font-family: 黑体
+        }
+
+        .a2 {
+            font-size: 20px;
+            font-family: 华文行楷
+        }
+    </style>
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+    <h1>AID网站首页</h1><br>
+{% endblock %}
+{% block content %}
+    <a href="aid/seeActivity/" class="a1">查看活动</a><br>
+{% if user.type %}
+    <a href="aid/writeTrainActivity/" class="a1">发布培训活动</a><br><br>
+{% endif %}
+{% if ans %}
+    <a href="aid/writeRecruitActivity/" class="a2">发布招募活动</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'myadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="ui grid">
+    <div class="row">
+        <h3 class="ui header six wide column">分类列表</h3>
+        <div class="v-title-extra ten wide column">
+            <div class="ui action input v-admin-search">
+                <input type="text" placeholder="Search..."  value="{{q}}" id="v-search">
+                <button class="ui small button" id="search">搜索</button>
+            </div>
+        </div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="row">
+        <table class="ui unstackable single line striped selectable table">
+            <thead>
+            <tr><th>#id</th><th>名称</th></th><th>状态</th><th>操作</th></tr>
+            </thead>
+            <tbody class="video-list">
+
+            {% for item in classification_list %}
+            <tr classification-id="{{item.id}}">
+                <td> {{item.id}}</td>
+                <td> {{item.title}}</td>
+                <td> {% if item.status %}启用{% else %}未启用{% endif %}</td>
+                <td>
+                    <a class="ui primary button classification-edit" href="{% url 'myadmin:classification_edit' item.id %}">编辑</a>
+                    <a class="ui button classification-delete">删除</a>
+                </td>
+            </tr>
+            {% empty %}
+            <h3>暂无数据</h3>
+            {% endfor %}
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="6">
+                    {% include 'myadmin/page_nav.html' %}
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block modal %}
+{% include "myadmin/classification_list_modal.html" %}
+{% endblock modal %}
+
+{% block javascript %}
+<script>
+    var search_url = "{% url 'myadmin:classification_list' %}"
+    var api_classification_delete = "{% url 'myadmin:classification_delete' %}"
+</script>
+<script src="{% static 'js/myadmin/classification_list.js' %}"></script>
+{% endblock javascript %}

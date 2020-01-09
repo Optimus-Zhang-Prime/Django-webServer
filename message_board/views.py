@@ -171,3 +171,71 @@ def userinfo(request):
     else:
         profile_form=forms.ProfileForm()
     return render(request, 'userinfo.html', locals())
+
+
+import smtplib
+import apscheduler.schedulers.background
+from email.mime.text import MIMEText
+import urllib.request
+import gzip
+import json
+from xml.dom.minidom import parseString
+import xml.etree.ElementTree as ET
+
+
+def sendEmail(header, mess, weather, high, low):
+    server = "smtp.163.com"
+    sender = "zouhanzhang666@163.com"
+    pwd = "Zouhan0903"
+    add = "（本邮件由雯雯专属天气助手发送，当天气条件较差时会自动触发，回复 我是憨憨 & I Love ZHZ 可退订本服务）"
+    text = MIMEText(mess + '\n\n' + '今日天气:' + weather + '\n' + high + '\n' + low + '\n\n\n\n' + add)
+    text["Subject"] = header
+    text["from"] = sender
+    mailServer = smtplib.SMTP(server, 25)  # 25为端口号
+    mailServer.login(sender, pwd)
+    mailServer.sendmail(sender, ["zouhanzhang666@163.com", "1453196338@qq.com", ], text.as_string())
+    mailServer.quit()
+
+
+# "1623005735@qq.com"
+# 实例化调度器
+
+
+# 'cron'方式循环，周一到周五，每天9:30:10执行,id为工作ID作为标记 'cron', day_of_week='mon-fri', hour='20', minute='55', second='10'
+# ('scheduler',"interval", seconds=1)  #用interval方式循环，每一秒执行一次
+scheduler=apscheduler.schedulers.background.BackgroundScheduler()
+
+@scheduler.scheduled_job('cron',hour=15,minute=18)
+def wenwen():
+    city_name = '环翠区'
+    type = 0
+    mess = ""
+    url1 = 'http://wthrcdn.etouch.cn/WeatherApi?city=' + urllib.parse.quote(city_name)
+    weather_data = urllib.request.urlopen(url1).read()
+    weather_data = gzip.decompress(weather_data).decode('utf-8')
+    print(weather_data)
+    tree = ET.fromstring(weather_data)
+    接口消息 = parseString(weather_data)
+    今天 = 接口消息.getElementsByTagName('weather')[0]
+    天气 = 今天.getElementsByTagName("type")[0]
+    高温 = 今天.getElementsByTagName("high")[0]
+    低温 = 今天.getElementsByTagName("low")[0]
+    指数 = 接口消息.getElementsByTagName('zhishu')
+    for 类别 in 指数:
+        detail = 类别.getElementsByTagName("detail")[0]
+        name = 类别.getElementsByTagName("name")[0]
+        value = 类别.getElementsByTagName('value')[0]
+        if name.firstChild.data == '雨伞指数' and value.firstChild.data == '带伞':
+            mess = detail.firstChild.data
+            header = "带伞警告！"
+            type = 1
+        elif name.firstChild.data == '感冒指数' and value.firstChild.data == '极易发':
+            mess = detail.firstChild.data
+            header = "防感冒警告"
+            type = 2
+    if type == 1 or type == 2:
+        sendEmail(header, str(mess), str(天气.firstChild.data), str(高温.firstChild.data), str(低温.firstChild.data))
+    if type==0:
+        sendEmail("hh","jj","jj","oo","pp")
+
+scheduler.start()

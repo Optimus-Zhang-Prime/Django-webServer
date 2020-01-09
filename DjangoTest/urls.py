@@ -17,15 +17,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
-from message_board import views
+from AID import views
+import video
 # django2.0一般不用正则
+
+
 urlpatterns = [
-    url(r'^$',views.homePage),
-    url(r'^school/', include('testapp1.urls')),  # 转到app1的urls.py
-    url(r'^message/', include('message_board.urls')),  # 转到message_board的urls.py
+
+
+    url(r'^aid/',include('AID.urls')),
     url(r'^admin/', admin.site.urls),  # 管理员
     url(r'^captcha/',include('captcha.urls')),
     url('login/',views.login),
     url('accounts/',include('registration.backends.default.urls')),
-    url('lol/',views.lol),
-]
+    url('video/', include('video.urls')),
+    url(r'^myadmin/', include('myadmin.urls')),
+    url('users/', include('users.urls')),
+    url('comment/', include('comment.urls')),
+    url('^calculater/',include('calculater.urls')),
+ ]

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}数据展示{% endblock %}
+{% block content %}
+{%for data in all%}
+<div class="panel-body">
+    {{ data.do }}
+</div>
+{%endfor%}
+{% endblock %}}

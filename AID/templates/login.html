@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}登录{% endblock %}
+{% block headmessage %}
+    <div class="container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="width: 300px">{{ message }}</div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading" align="center">
+                        <h3>欢迎登陆</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form action="." method="post">
+
+            <table>
+                {% csrf_token %}
+                {{ login_form.as_p }}
+            </table>
+            <input type="submit" value="提交">
+        </form>
+    </div>
+{% endblock %}

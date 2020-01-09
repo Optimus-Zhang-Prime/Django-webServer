@@ -20,7 +20,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pd96pso#zos5435a_s3(4zrr0s&6w7zusq7$c^(yfpoocgl)^z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,19 +35,41 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'testapp1',  # 自己改的
-    'message_board',
+    'calculater',
+    'AID',
     'captcha',  # 验证码
-    'registration'  # 用户注册
+    'registration' , # 用户注册
+    'video',
+    'users',
+    'myadmin',
+    'comment',
+    'assistant',
+    'django_apscheduler',
+    'django_crontab',
+    'chunked_upload'
+
 ]
 
+CRONJOBS=(
+    # 每一分钟执行一次你的定时函数
+    #('*/ * * * *', 'appname.cron.test'),
+    # 定时函数输出的内容到指定文件（如果该路径或文件不存在将会自动创建）
+    #('0  0 1 * *', 'app名.定时函数所在文件名.定时函数名', '>输出文件路径和名称'),
+    # 在12点10分执行命令
+    ('1 7 * * *', 'assistant.cron.wenwen'),
+)
+
+AUTH_USER_MODEL='users.User'
 ACCOUNT_ACTIVATION_DAYS = 7  # 激活账号期限：7天
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -59,7 +80,7 @@ ROOT_URLCONF = 'DjangoTest.urls'  # 根级url配置文件
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'message_board/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'AID/templates')],
         # 将Templates加来
         'APP_DIRS': True,
         'OPTIONS': {
@@ -80,14 +101,14 @@ WSGI_APPLICATION = 'DjangoTest.wsgi.application'
 
 DATABASES = {
     'default': {  # 自己改的
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': "Djangotest",
-        'USER': "root",
-        'PASSWORD': "123456",
-        'HOST': "localhost",
-        'PORT': "3306"  # 端口
-
-    }
+         'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test1',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS':{'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",}
+    },
 }
 
 # Password validation
@@ -119,17 +140,20 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/static/'
+
 
 # 当运行 python manage.py collectstatic 的时候
 # STATIC_ROOT 文件夹 是用来将所有STATICFILES_DIRS中所有文件夹中的文件，以及各app中static中的文件都复制过来
 # 把这些文件放到一起是为了用apache等部署的时候更方便
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
+STATICFILES_ROOT = [os.path.join(BASE_DIR, 'static/')]
 
 # 这个是默认设置，Django 默认会在 STATICFILES_DIRS中的文件夹 和 各app下的static文件夹中找文件
 # 注意有先后顺序，找到了就不再继续找了
@@ -138,9 +162,21 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 )
 
+THUMBNAIL_DEBUG = True
+
+
+SECRET_KEY = 'wg*kgsb5$ok23k3t%g)^2mf6++v(o(j1d%-vfd0k(@f(@jg(qh'
+
+# 文件上传路径
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\','/')
+MEDIA_URL = '/upload/'
+
+# 上传视频最大尺寸
+CHUNKED_UPLOAD_MAX_BYTES = 100000000
+
 # 邮件
 
-EMAIL_BCKEND='django.core.main.backends.smtp.EmailBackend'
+EMAIL_BCKEND = 'django.core.main.backends.smtp.EmailBackend'
 # 服务器地址
 EMAIL_HOST = 'smtp.163.com'
 # 端口，邮箱默认动态端口 25
@@ -151,4 +187,4 @@ EMAIL_HOST_USER = 'zouhanzhang666@163.com'
 EMAIL_HOST_PASSWORD = 'Zouhan0903'
 # 发送的邮箱
 EMAIL_FROM = 'zouhanzhang666@163.com'
-DEFAULT_FROM_EMAIL='zouhanzhang666@163.com'
+DEFAULT_FROM_EMAIL = 'zouhanzhang666@163.com'

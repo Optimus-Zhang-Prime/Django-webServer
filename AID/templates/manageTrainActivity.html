@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}活动{% endblock %}
+{% block headmessage %}
+<style>
+    .a1 {
+        font-size: 20px;
+        font-family: 黑体;
+        font-weight: bold;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<br>
+<div class="col-md-12 col-xs-12">
+    {% for userlist in allsignupUserlist %}
+    <a>{{userlist.username}}</a><br>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}活动{% endblock %}
+{% block headmessage %}
+<style>
+    .a1 {
+        font-size: 20px;
+        font-family: 黑体;
+        font-weight: bold;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<br>
+<div class="col-md-12 col-xs-12">
+    {% for train in TrainActivity %}
+
+        <div class="col-md-4 col-xs-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    培训信息
+                </div>
+                <div class="panel-body">
+                    {{ train.title|linebreaks }}<br/>
+                    {{ train.description|linebreaks }}
+                </div>
+                <div class="panel-footer" align="right">
+                    <i>
+                        <small>{{ train.createDate }}</small>
+                    </i>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+</div>
+{% endblock %}

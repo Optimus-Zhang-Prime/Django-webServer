@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+
+<h3 class="ui header">我的喜欢</h3>
+<div class="ui unstackable items">
+
+    {% for item in video_list %}
+    <div class="item">
+        <div class="ui tiny image">
+            {% thumbnail item.cover "300x200" crop="center" as im %}
+            <img class="ui image" src="{{ im.url }}">
+            {% empty %}
+            {% endthumbnail %}
+        </div>
+        <div class="middle aligned content">
+            <a class="header" href="{% url 'video:detail' item.pk %}">{{ item.title }}</a>
+        </div>
+    </div>
+    {% empty %}
+    <h3>暂无数据</h3>
+    {% endfor %}
+
+</div>
+
+
+{% include "base/page_nav.html" %}
+
+{% endblock content %}
+
+

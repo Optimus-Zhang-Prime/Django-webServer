@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html style="height: 100%;width: 100%;">
+
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<script src="heatmap.js"></script>
+		<script src="https://cdn.bootcss.com/xlsx/0.11.5/xlsx.core.min.js"></script>
+		<title></title>
+		<style>
+			.canvas {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 1;
+			}
+			
+			.box_before {
+				height: 1.2vw;
+				width: 1.2vw;
+				position: absolute;
+				background: url(gou.png);
+				background-size: 100% 100%;
+				cursor: pointer;
+			}
+			
+			.box_after {
+				height: 1.2vw;
+				width: 1.2vw;
+				position: absolute;
+				background-size: 100% 100%;
+					cursor: pointer;
+
+			}
+		</style>
+	</head>
+
+	<body style="height: 100%;width: 100%;background:black">
+		<div style="height: 100%;width: 100%;background:url(矩形@2x.png) no-repeat;background-size: 100% 100%;position: absolute;">
+		</div>
+		<div style="height: 100%;width: 100%;position: absolute;">
+
+			<div id="top" style=" height:10%;width: 100%;display: flex;text-align: center;" class="container">
+				<div id="top_left" style="height: 100%;width: 50%;display: table;">
+					<div style="display: table-cell;vertical-align: middle;text-align: center;">
+						<div style="background: #D49E26 ;transform: skewX(-30deg);width: 45%;height: 80%; display: table;text-align: center;" class="text-center">
+							<div style="transform: skewX(30deg);font-size: 1.5vw;display: table-cell;vertical-align: middle;#ECECEC -space: nowrap;color: #ECECEC ;text-align: center;">英雄联盟电竞数据可视化系统</div>
+						</div>
+					</div>
+
+				</div>
+				<div id="top_right" style="height: 100%;width: 50%;display: table;">
+					<div style="display: table-cell;vertical-align: middle;">
+						<div style=" display: table;height: 80%;float: right;">
+							<div style="display: table-cell;vertical-align: bottom;">
+
+								<button style="background: #D49E26 ;font-size: 20px;color: #ECECEC ;font-size: 1vw">个人中心</button>
+								<button style="background: #D49E26 ;font-size: 20px;color: #ECECEC ;font-size: 1vw">退出系统</button>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+			<div style="height: 90% ; width: 100%;opacity: 0.8;background:linear-gradient(to right,transparent,5%,rgba(216,216,216,0.5),95% ,transparent);text-align: center;" class="container">
+				<div style="width: 100%;height: 100%;display: flex;" class="container">
+					<div style="height: 100%;width:15%;margin: 0 5px;display: table;">
+
+						<div style="display: table-cell;">
+							<div style="height: 20%;width:100%;">
+
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC;">
+
+									<div style="position: relative;float: right;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="position: relative;width: 0;height: 0; transform: rotate(90deg);float: right;border-width: 1.2vw;border-color: #1E50A2 transparent transparent #1E50A2;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box1" style="height: 1.2vw;width: 1.2vw;position:absolute;right:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<div style="height: 20%;">
+
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC ">
+
+									<div style="position: relative;float: right;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; transform: rotate(90deg);float: right;border-width: 1.2vw;border-color:  cyan transparent transparent cyan;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box2" style="height: 1.2vw;width: 1.2vw;position:absolute;right:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+
+							<div style="height: 20%;">
+
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC;">
+
+									<div style="position: relative;float: right;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; transform: rotate(90deg);float: right;border-width: 1.2vw;border-color: #A0D8EF transparent transparent #A0D8EF;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box3" style="height: 1.2vw;width: 1.2vw;position:absolute;right:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<div style="height: 20%;">
+
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC ">
+
+									<div style="position: relative;float: right;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; transform: rotate(90deg);float: right;border-width: 1.2vw;border-color:#5A79BA transparent transparent #5A79BA;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box4" style="height: 1.2vw;width: 1.2vw;position:absolute;right:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<div style="height: 20%;">
+
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC ">
+
+									<div style="position: relative;float: right;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; transform: rotate(90deg);float: right;border-width: 1.2vw;border-color:#674598 transparent transparent #674598;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box5" style="height: 1.2vw;width: 1.2vw;position:absolute;right:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+					<div style="height: 100%;width:35%;margin-left: 1vh;display: table;">
+
+						<div style="display: table-cell;vertical-align: middle;">
+							<div style="width: 100%;height: 36vh;display: flex;">
+								<div style="height: 100%;width: calc(100% - 36vh);border-radius: 10px;border:2px solid #ECECEC ;color: white;font-size: 1.5vw;text-align: center;position: relative">
+
+									<div style="width: 100%;height: 100%;position: absolute;">
+
+										<div style="width: 0;height: 0; float:left;border-width: 1.2vw;border-color:#0000FF transparent transparent#0000FF;border-style: solid;border-top-left-radius: 10px;">
+
+										</div>
+										<div id="box11" style="height: 1.2vw;width: 1.2vw;position:absolute;left:2px;background-size: 100% 100%;">
+										</div>
+									</div>
+
+									<div style="height: 50%;width: 100%;">
+										team logo
+									</div>
+									<div style="height: 50%;width: 100%;">
+										历史战绩：
+									</div>
+
+								</div>
+								<div style="height: 36vh;width: 36vh;margin-left: 5px;">
+
+									<div style="height: 295px;width: 295px;position: absolute;background: url(map.jpg);" id="canvas_size">
+										<canvas id="canvas" width="295" height="295" class="canvas"></canvas>
+									</div>
+
+								</div>
+
+							</div>
+
+							<div style="height:18vh;padding-top: 0.5vh;">
+								<div style="width: 100%;height: 100%;background: #D8D8D8 "></div>
+							</div>
+							<div style="height:18vh;padding-top: 0.5vh;">
+								<div style="width: 100%;height: 100%;background: #D8D8D8 "></div>
+							</div>
+							<div style="height:18vh;padding-top: 0.5vh;">
+								<div style="width: 100%;height: 100%;background: #D8D8D8 "></div>
+							</div>
+
+						</div>
+
+					</div>
+					<div style="height: 100%;width:35%;margin-left: 1vh;display: table;">
+
+						<div style="display: table-cell;vertical-align: middle;">
+							<div style="width: 100%;height: 36vh;display: flex;">
+								<div style="height: 36vh;width: 36vh;margin-right: 5px;">
+									<div class="heatmap" style="position: relative;width:295px;height: 295px;" id="heat_size">
+										<img src="map.jpg" style="width: 100%;height: 100%;">
+									</div>
+								</div>
+								<div style="height: 100%;width: calc(100% - 36vh);border-radius: 10px;border:2px solid #ECECEC ;color: white;font-size: 1.5vw;text-align: center;position: relative;">
+
+									<div style="width: 100%;height: 100%;position: absolute;">
+
+										<div style="width: 0;height: 0;transform: rotate(90deg); float: right;border-width: 1.2vw;border-color: #FF0000 transparent transparent #FF0000;border-style: solid;border-top-left-radius: 10px;">
+
+										</div>
+										<div id="box12" style="height: 1.2vw;width: 1.2vw;position:absolute;right:2px;background-size: 100% 100%;">
+										</div>
+									</div>
+
+									<div style="height: 50%;width: 100%;">
+										team logo
+									</div>
+									<div style="height: 50%;width: 100%;">
+										历史战绩：
+									</div>
+
+								</div>
+
+							</div>
+
+							<div style="height:18vh;padding-top: 0.5vh;">
+								<div style="width: 100%;height: 100%;background: #D8D8D8 "></div>
+							</div>
+							<div style="height:18vh;padding-top: 0.5vh;">
+								<div style="width: 100%;height: 100%;background: #D8D8D8 "></div>
+							</div>
+							<div style="height:18vh;padding-top: 0.5vh;">
+								<div style="width: 100%;height: 100%;background: #D8D8D8 "></div>
+							</div>
+
+						</div>
+
+					</div>
+					<div style="height: 100%;width:15%;margin: 0 5px;display: table;">
+
+						<div style="display: table-cell;">
+							<div style="height: 20%;">
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC ;margin-left: 35%;">
+
+									<div style="position: relative;float: left;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; float: left;border-width: 1.2vw;border-color: #F35858 transparent transparent #F35858;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box6" style="height: 1.2vw;width: 1.2vw;position:absolute;left:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<div style="height: 20%;">
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC ;margin-left: 35%;">
+
+									<div style="position: relative;float: left;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; float: left;border-width: 1.2vw;border-color: #F6B894 transparent transparent #F6B894;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box7" style="height: 1.2vw;width: 1.2vw;position:absolute;left:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<div style="height: 20%;">
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC ;margin-left: 35%;">
+
+									<div style="position: relative;float:left;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; float:left;border-width: 1.2vw;border-color: #F4D03F  transparent transparent #F4D03F ;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box8" style="height: 1.2vw;width: 1.2vw;position:absolute;left:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<div style="height: 20%;">
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC ;margin-left: 35%;">
+
+									<div style="position: relative;float: left;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; float: left;border-width: 1.2vw;border-color: #EA5506 transparent transparent #EA5506;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box9" style="height: 1.2vw;width: 1.2vw;position:absolute;left:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<div style="height: 20%;">
+								<div style="height: 15vh;width: 15vh;border-radius: 10px;border:2px solid #ECECEC ;margin-left: 35%;">
+
+									<div style="position: relative;float: left;width: 50px;height: 50px;">
+										<div style="position: absolute;width: 100%;height: 100%;">
+
+											<div style="width: 0;height: 0; float: left;border-width: 1.2vw;border-color: #B7282E transparent transparent #B7282E;border-style: solid;border-top-left-radius: 10px;">
+
+											</div>
+											<div id="box10" style="height: 1.2vw;width: 1.2vw;position:absolute;left:2px;background-size: 100% 100%;">
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+				<input type="file" id="xlsxfile" />
+			</div>
+
+		</div>
+		</div>
+
+		<script>
+			window.addEventListener('resize', function() {
+
+				document.getElementById("canvas_size").style.zoom = (window.innerHeight * 0.36) / 295;
+				document.getElementById("heat_size").style.zoom = (window.innerHeight * 0.36) / 295;
+
+			})
+			window.onload = function() {
+
+				document.getElementById("canvas_size").style.zoom = (window.innerHeight * 0.36) / 295;
+				document.getElementById("heat_size").style.zoom = (window.innerHeight * 0.36) / 295;
+
+				var f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12 = 0;
+				var box_id = [box1, box2, box3, box4, box5, box6, box7, box8, box9, box10]
+				document.getElementById("box1").onclick = function() {
+					document.getElementById("Maokai").click();
+					if(!f1) {
+						document.getElementById("box1").className = "box_before";
+						f1 = 1;
+					} else {
+						document.getElementById("box1").className = "box_after";
+						f1 = 0;
+					}
+				}
+				document.getElementById("box2").onclick = function() {
+					document.getElementById("Elise").click();
+					if(!f2) {
+						document.getElementById("box2").className = "box_before";
+						f2 = 1;
+					} else {
+						document.getElementById("box2").className = "box_after";
+						f2 = 0;
+					}
+				}
+				document.getElementById("box3").onclick = function() {
+					document.getElementById("Jayce").click();
+					if(!f3) {
+						document.getElementById("box3").className = "box_before";
+						f3 = 1;
+					} else {
+						document.getElementById("box3").className = "box_after";
+						f3 = 0;
+					}
+				}
+				document.getElementById("box4").onclick = function() {
+					document.getElementById("Ezreal").click();
+					if(!f4) {
+
+						document.getElementById("box4").className = "box_before";
+						f4 = 1;
+					} else {
+						document.getElementById("box4").className = "box_after";
+						f4 = 0;
+					}
+				}
+				document.getElementById("box5").onclick = function() {
+					document.getElementById("Lulu").click();
+					if(!f5) {
+
+						document.getElementById("box5").className = "box_before";
+						f5 = 1;
+					} else {
+						document.getElementById("box5").className = "box_after";
+						f5 = 0;
+					}
+				}
+				document.getElementById("box11").onclick = function() {
+					team1();
+				}
+				document.getElementById("box12").onclick = function() {
+					team2();
+				
+				}
+				document.getElementById("box6").onclick = function() {
+					document.getElementById("Nautilus").click();
+					if(!f8) {
+						document.getElementById("box6").className = "box_before";
+						f8 = 1;
+					} else {
+						document.getElementById("box6").className = "box_after";
+						f8 = 0;
+					}
+				}
+				document.getElementById("box7").onclick = function() {
+					document.getElementById("LeeSin").click();
+					if(!f9) {
+						document.getElementById("box7").className = "box_before";
+						f9 = 1;
+					} else {
+						document.getElementById("box7").className = "box_after";
+						f9 = 0;
+					}
+				}
+				document.getElementById("box8").onclick = function() {
+					document.getElementById("Orianna").click();
+					if(!f10) {
+						document.getElementById("box8").className = "box_before";
+						f10 = 1;
+					} else {
+						document.getElementById("box8").className = "box_after";
+						f10 = 0;
+					}
+				}
+				document.getElementById("box9").onclick = function() {
+					document.getElementById("Lucian").click();
+					if(!f11) {
+						document.getElementById("box9").className = "box_before";
+						f11 = 1;
+					} else {
+						document.getElementById("box9").className = "box_after";
+						f11 = 0;
+					}
+				}
+				document.getElementById("box10").onclick = function() {
+					document.getElementById("Nami").click();
+					if(!f12) {
+						document.getElementById("box10").className = "box_before";
+						f12 = 1;
+					} else {
+						document.getElementById("box10").className = "box_after";
+						f12 = 0;
+					}
+				}
+				document.getElementById("box11").click();
+				document.getElementById("box12").click();
+			}
+		</script>
+		<script type="text/javascript" id="code">
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+
+			//从后端获取人物列表
+			var heros = ["Maokai", "Elise", "Jayce", "Ezreal", "Lulu", "Nautilus", "LeeSin", "Orianna", "Lucian", "Nami"];
+			var colors = ['#1E50A2', 'cyan', '#A0D8EF', '#5A79BA', '#674598', '#F35858', '#F6B894', '#F4D03F', '#EA5506', '#B7282E'];
+			var heros_name = new Array();
+			//生成复选框
+			for(i = 0; i < 10; i++) {
+				var input = document.createElement("input");
+				document.body.appendChild(input);
+				input.id = heros[i];
+				input.type = "checkbox";
+				input.name = "check";
+				input.style.visibility = "hidden"
+				input.onclick = checkboxOnclick;
+			}
+			//生成人物与颜色的对应关系
+			var map = new Map();
+			for(var i = 0; i < heros.length; i++)
+				map.set(heros[i], colors[i]);
+			//要显示的人物
+			var heros_show = new Map();
+			var box_id = ["box1", "box2", "box3", "box4", "box5", "box6", "box7", "box8", "box9", "box10"]
+			//勾选要显示的英雄
+			function checkboxOnclick(checkbox) {
+				var groupCheckbox = $("input[name='check']");
+				var heros_initial = new Array();
+				for(i = 0; i < groupCheckbox.length; i++) {
+					if(groupCheckbox[i].checked == true) {
+						heros_show.set(groupCheckbox[i].id, map.get(groupCheckbox[i].id));
+						heros_initial.push(heros[i]);
+
+					} else {
+						heros_show.delete(groupCheckbox[i].id);
+						if(i < 5) {
+							document.getElementById("box11").className = "box_after";
+						} else {
+							document.getElementById("box12").className = "box_after";
+						}
+					}
+
+				}
+				if(groupCheckbox[0].checked && groupCheckbox[2].checked && groupCheckbox[3].checked && groupCheckbox[4].checked && groupCheckbox[1].checked == true) {
+
+					document.getElementById("box11").className = "box_before";
+				}
+				if(groupCheckbox[5].checked && groupCheckbox[6].checked && groupCheckbox[7].checked && groupCheckbox[8].checked && groupCheckbox[9].checked == true) {
+
+					document.getElementById("box12").className = "box_before";
+				}
+
+				heros_name = heros_initial;
+			}
+			//选取队伍
+			var allClick1 = false;
+
+			function team1() {
+				var groupCheckbox = $("input[name='check']");
+				var x = document.getElementById(groupCheckbox[0].id).checked && document.getElementById(groupCheckbox[1].id).checked && document.getElementById(groupCheckbox[2].id).checked && document.getElementById(groupCheckbox[3].id).checked && document.getElementById(groupCheckbox[4].id).checked
+				var y = document.getElementById(groupCheckbox[0].id).checked || document.getElementById(groupCheckbox[1].id).checked || document.getElementById(groupCheckbox[2].id).checked || document.getElementById(groupCheckbox[3].id).checked || document.getElementById(groupCheckbox[4].id).checked
+				if(x == false&&y==false) {
+					allClick1 = true
+				}
+				if(x == true&&y==true) {
+					allClick1 = false
+				}
+				console.log(allClick1)
+				for(j = 0; j < 5; j++) {
+					if(allClick1) {
+						document.getElementById("box11").className = "box_before";
+						if(document.getElementById(groupCheckbox[j].id).checked == false) {
+							document.getElementById(box_id[j]).click();
+						}
+
+					}
+					if(!allClick1) {
+						document.getElementById("box11").className = "box_after";
+						if(document.getElementById(groupCheckbox[j].id).checked == true) {
+							document.getElementById(box_id[j]).click();
+						}
+
+					}
+
+				}
+				
+
+			}
+			var isClick2 = false;
+
+			function team2() {
+				var groupCheckbox = $("input[name='check']");
+				var x = document.getElementById(groupCheckbox[6].id).checked && document.getElementById(groupCheckbox[7].id).checked && document.getElementById(groupCheckbox[8].id).checked && document.getElementById(groupCheckbox[9].id).checked && document.getElementById(groupCheckbox[5].id).checked
+				var y = document.getElementById(groupCheckbox[6].id).checked || document.getElementById(groupCheckbox[7].id).checked || document.getElementById(groupCheckbox[8].id).checked || document.getElementById(groupCheckbox[9].id).checked || document.getElementById(groupCheckbox[5].id).checked
+				if(x == false&&y==false) {
+					isClick2 = true
+				}
+				if(x == true&&y==true) {
+					isClick2 = false
+				}
+				for(j = 5; j < 10; j++) {
+					if(isClick2) {
+						document.getElementById("box12").className = "box_before";
+						if(document.getElementById(groupCheckbox[j].id).checked == false) {
+							document.getElementById(box_id[j]).click();
+						}
+
+					}
+					if(!isClick2) {
+						document.getElementById("box12").className = "box_after";
+						if(document.getElementById(groupCheckbox[j].id).checked == true) {
+							document.getElementById(box_id[j]).click();
+						}
+
+					}
+
+				}
+			}
+
+			// 读取本地excel文件
+			function readWorkbookFromLocalFile(file, callback) {
+				var reader = new FileReader();
+				reader.readAsBinaryString(file);
+				reader.onload = function(e) {
+					var data = e.target.result;
+					var workbook = XLSX.read(data, {
+						type: 'binary'
+					});
+					if(callback)
+						callback(workbook);
+				}
+			}
+
+			//遍历excel，将表格转换为数组
+			function sheet2arr(sheet) {
+				var row;
+				var rowNum;
+				var colNum;
+				var range = XLSX.utils.decode_range(sheet['!ref']);
+				var result = [];
+				for(rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
+					row = [];
+					for(colNum = range.s.c; colNum <= range.e.c; colNum++) {
+						var nextCell = sheet[
+							XLSX.utils.encode_cell({
+								r: rowNum,
+								c: colNum
+							})
+						];
+						if(typeof nextCell === 'undefined') {
+							row.push(void 0);
+						} else row.push(nextCell.w);
+					}
+					result.push(row);
+				}
+				return result;
+			}
+
+			//休眠函数
+			function sleep(ms) {
+				return new Promise(resolve => setTimeout(resolve, ms))
+			}
+
+			//绘图
+			async function draw(data, ctx, heros) {
+				var queue_len = 25;
+				//用于保存每个人最多queue_len个的坐标
+				//即每个人有一个历史位置队列，队列中包含前queue_len个的坐标
+				var pos = new Map();
+
+				var pos_heat = new Map(); //先声明一维
+
+				var heatmapInstance = h337.create({
+					container: document.querySelector('.heatmap')
+				});
+				//声明heeatmap长宽与最大值
+
+				var max = 2;
+				//第0行数据为表头
+				for(var i = 1; i < data.length;) {
+					var num_of_same_frames = 0;
+					var data1 = new Array();
+					var cur_frame = data[i][1];
+					//同一帧内依次读取
+					for(var f = i; f < data.length && data[f][1] == cur_frame; f++) {
+
+						num_of_same_frames++;
+						//画这一帧对应的人的轨迹
+						var cur_hero = data[f][0];
+						//如果这个人第一次出现，则给pos赋初值，并进入下一循环
+						if(pos.get(cur_hero) == null) {
+							pos.set(cur_hero, [{
+								X: data[f][2],
+								Y: data[f][3]
+							}]);
+							pos_heat.set(cur_hero, [{
+								x: data[f][2],
+								y: data[f][3],
+								value: 1,
+								radius: 10
+							}]);
+							continue;
+						}
+						//当前帧这个人的坐标
+						var x = data[f][2];
+						var y = data[f][3];
+						//这个人的历史坐标队列
+						var queue = pos.get(cur_hero);
+						var queue_heat = pos_heat.get(cur_hero);
+						var value = 1;
+						//寻找相同坐标
+						for(var a = 0; a < data1.length; a++) {
+
+							if(x == data1[a].x && y == data1[a].y) {
+								//增加频次
+								value = value + 1;
+
+							}
+							//更新最大频次
+							if(max < value) {
+								max = value;
+							}
+
+						}
+						queue.push({
+							X: x,
+							Y: y
+						});
+						queue_heat.push({
+							x: x,
+							y: y,
+							value: 1,
+							radius: 10
+						});
+						if(pos.get(cur_hero).length > queue_len) {
+							pos.get(cur_hero).shift();
+						}
+						for(var j = 0; j < heros_name.length; j++) {
+							if(pos_heat.get(heros_name[j]) != null) {
+								data1 = data1.concat(pos_heat.get(heros_name[j]));
+							}
+
+						}
+					}
+					//await sleep(5000);
+					//更新当前帧所有人的坐标后，画图
+					heros.forEach(function(value, key) {
+						//若只有一个坐标，画点
+						if(pos.get(key) != null) {
+							if(pos.get(key).length == 1) {
+								ctx.fillRect(pos.get(key)[0].X, pos.get(key)[0].Y, 5, 5);
+								ctx.fillStyle = value;
+							}
+							//画线
+							for(var num = 0; num < pos.get(key).length - 1; num++) {
+								ctx.beginPath();
+								ctx.save();
+								ctx.lineWidth = 5;
+								ctx.strokeStyle = value;
+								ctx.moveTo(pos.get(key)[num].X, pos.get(key)[num].Y);
+								if(Math.pow(pos.get(key)[num + 1].X - pos.get(key)[num].X, 2) + Math.pow(pos.get(key)[num + 1].Y - pos.get(key)[num].Y, 2) <= 10000) {
+									ctx.lineTo(pos.get(key)[num + 1].X, pos.get(key)[num + 1].Y);
+								}
+								ctx.stroke();
+								ctx.closePath();
+							}
+						}
+
+					});
+
+					i += num_of_same_frames;
+					//每一帧休息一下，单位ms
+					var points = data1;
+					//将heatmap数据合并打包
+					var data2 = {
+
+						max: max,
+
+						data: points
+
+					};
+					//发送数据
+					heatmapInstance.setData(data2);
+					await sleep(100);
+					ctx.clearRect(0, 0, 295, 295)
+				}
+				alert('Finished!!!');
+			}
+
+			$(document).ready(function() {
+				document.getElementById('xlsxfile').addEventListener('input', function(e) {
+					var files = e.target.files;
+					if(files.length == 0) return;
+					var f = files[0];
+					if(!(/\.xls$/g.test(f.name)) || (/\.xlsx$/g.test(f.name))) {
+						alert('仅支持读取xlsx或xls格式！');
+						return;
+					}
+
+					readWorkbookFromLocalFile(f, function(workbook) {
+						var sheet_name_list = workbook.SheetNames;
+						var data = sheet2arr(workbook.Sheets[sheet_name_list[0]]);
+						draw(data, ctx, heros_show);
+					});
+				});
+			});
+		</script>
+
+	</body>
+
+</html>

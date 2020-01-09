@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+
+</head>
+<body style="background-image: url({% static 'img/bg.png'%});background-size:100% 100%;width: 100%;height: 100%;">
+<div style="height:10vh;width: 100vw;;">
+    <div style="width: 20%;height: 100%;float: left;">
+        <img src={% static "img/logo.png" %} width="100%" height="100%" />
+    </div>
+    <div style="width: 60%;height: 100%;float: left;color: white;font-size: 1vw;">
+        <div style="display: table;width: 100%;height: 100%;float: left;color: white;">
+            <div style="display: table-cell;vertical-align: middle;">
+                <div style="width: 100%;height: 50%;">
+                    <div style="width:25%;font-size: 1.5vw;text-align: -webkit-center;float: left;float: left;float: left;float: left;">
+                        <a href="../video" style="color: white;text-decoration: none">AID急救教学介绍<a>
+                    </div>
+                    <div style="width:25%;font-size: 1.5vw;text-align: -webkit-center;float: left;float: left;float: left;">
+                        <a href="../video" style="color: white;text-decoration: none">急救教学广场</a></div>
+                    <div style="width:25%;font-size: 1.5vw;text-align: -webkit-center;float: left;float: left;"><a
+                            href="./seeActivity" style="color: white;text-decoration: none">急救招募资讯</a></div>
+                    <div style="width:25%;font-size: 1.5vw;text-align: -webkit-center;float: left;color: royalblue;">
+                        AID急救教学硬件端
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 20%;height: 100%;float: left;">
+        <div style="display: table;width: 100%;height: 100%;float: left;color: white;">
+            <div style="display: table-cell;vertical-align: middle;">
+                <div style="width: 100%;height:40%;margin-left: 2vw;">
+                    <img src={% static "img/Search.png" %} style="float: left;width: 8%;"/>
+                    <input style="border: none;background: none;color: white;margin-left: 2vw;width: 35%;float: left;"
+                           value="登录了解更多"/>
+                    <button style="float: left;width: 25%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">
+                        <a href="../login" style="color:white;text-decoration: none">登录</a>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div style="height:80vh;width: 100vw;color: white;">
+    <div style="width:50%;height: 100%;display: table;float: left;">
+        <div style="display: table-cell;vertical-align: middle;width:100%;height: 100%;">
+            <div style="height:30%;width: 80%;margin: 20%;">
+                <div style="height: 30%;font-size: 2vw;text-align: left;">欢迎使用</div>
+                <div style="height: 50%;font-size: 4vw;text-align: left;">AID急救教学硬件</div>
+
+                <div style="height: 20%;font-size: 1vw;text-align: left;">了解更多</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div style="height:10vh;width: 100vw;color: white;background-image: url({% static " img/base.png" %});">
+<div style="height:10vh;width: 30vw;display: table;float: left;">
+    <div style="display: table-cell;vertical-align: middle;width:100%;height:10%;float: left;">
+        <div style="width:100%;height: 30%;text-align: right;float: left;">请先<a href="../login" style="color: royalblue;">登录</a>，再输入设备序列号
+        </div>
+    </div>
+
+</div>
+<div style="height:10vh;width: 30vw;display: table;float: left;">
+    <div style="display: table-cell;vertical-align: middle;width:100%;height:100%;float: left;">
+        <input style="width:100%;height:50%;border-radius: 5px;float: left;margin-left: 1vh;margin-top: 2vh;color: gray;"
+               value="设备序列号"/>
+    </div>
+
+</div>
+<div style="height:10vh;width: 40vw;display: table;float: left;">
+    <div style="display: table-cell;vertical-align: middle;width:100%;height: 70%;float: left;margin-left: 1vw;">
+        <button style="margin-top: 2.5vh;width: 20%;height: 70%;color: white;border-radius: 1vh;border: none;margin-left: 2vh;background-image: url({% static 'img/button.png'%});">登录设备</button>
+    </div>
+
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <title>login</title>
+</head>
+<body>
+<div>
+    用户名：<input type="text" name="username" id="username">
+    密码：<input type="number" name="operation" id="operation">
+    <input type="button" id="submit" value="提交">
+    <span id="status"></span>
+</div>
+</body>
+
+<script>
+    //以post方式请求
+    $(function () {
+        $('#submit').click(function () {
+
+            $.ajax({
+                url: "https://matrix.wizzstudio.com/calculater/",//请求路径
+                type: 'post',            //请求方式
+                'Content-Type':'application/json',
+                charset:"utf-8",
+                data:JSON.stringify({
+                    username: $('#username').val(),
+                    operation: $('#operation').val(),
+                }),
+                success: function (response) {//请求回调函数
+                    if (response == 1) {
+                        $('#status').text('hh')
+                        console.log("hh")
+                    } else {
+                        $('#status').text('账号或密码有误！')
+                        console.log(response)
+                    }
+                }
+
+
+
+            })
+        })
+    });
+
+</script>
+</html>

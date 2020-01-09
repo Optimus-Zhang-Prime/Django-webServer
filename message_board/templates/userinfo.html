@@ -19,8 +19,11 @@
                     </div>
                     <div class="panel panel-body">
                         电子邮件：{{ user.email }}<br/>
-                        性别：{{ profile.gender|yesno:"男生,女生" }}<br/>
-                        个性签名：{{ profile.signature }}<br/>
+                        性别：{{ VolunteerUser.gender|yesno:"男生,女生" }}<br/>
+                        年龄：{{ VolunteerUser.age }}<br/>
+                        职业：{{ VolunteerUser.work }}<br/>
+                        自我介绍：{{ VolunteerUser.signature }}<br/>
+
                     </div>
                 </div>
             </div>
