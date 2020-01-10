@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'assistant',
     'django_apscheduler',
     'django_crontab',
-    'chunked_upload'
+    'chunked_upload',
+    'sorl.thumbnail'
 
 ]
 
