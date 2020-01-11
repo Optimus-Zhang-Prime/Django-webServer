@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Djangotest@localhost" uuid="37a703fd-af37-4201-9c0a-8f7adbd7d0a4">
+    <data-source source="LOCAL" name="test1@localhost" uuid="59238bc2-bc91-4d95-881a-5633d6fa6ffc">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/Djangotest</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/test1</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

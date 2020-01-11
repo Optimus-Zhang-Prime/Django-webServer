@@ -33,12 +33,28 @@
         <div style="display: table;width: 100%;height: 100%;float: left;color: white;">
             <div style="display: table-cell;vertical-align: middle;">
                 <div style="width: 100%;height:40%;margin-left: 2vw;">
-                    <img src={% static "img/Search.png" %} style="float: left;width: 8%;"/>
-                    <input style="border: none;background: none;color: white;margin-left: 2vw;width: 35%;float: left;"
-                           value="登录了解更多"/>
-                    <button style="float: left;width: 25%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">
-                        <a href="../login" style="color:white;text-decoration: none">登录</a>
-                    </button>
+
+                    {% if username %}
+                        <b style="font-size: 30px;position: absolute;right: 50%;top: 0px">欢迎：{{ username }}</b>
+                        <img src="{% static 'message_board/image/user2.png' %} " height="40"
+                            style="position:absolute;top:1px;right:280px">
+                        <a href="../aid/userinfo/"><button type="button" class="btn btn-primary btn-lg" style="position: absolute;right: 0">
+                            <span class="glyphicon glyphicon-user"></span>我的信息
+                        </button></a>
+                        <a href="../aid/logout/"><button type="button" class="btn btn-primary btn-lg"  style="position: absolute;right: 140px">
+                            <span class="glyphicon glyphicon-user"></span>退出登录
+                        </button></a>
+                    {% else %}
+
+                        </a>
+
+                        <a href="../../../accounts/register"><button type="button"  style="float: left;width: 30%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">
+                <span class="glyphicon glyphicon-user"></span>注册账户
+           </button></a>
+            <a href="../../../login"><button type="button" class="btn btn-primary btn-lg"  style="float: left;width: 30%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">
+                <span class="glyphicon glyphicon-user"></span>用户登录
+            </button></a>
+                    {% endif %}
                 </div>
 
             </div>

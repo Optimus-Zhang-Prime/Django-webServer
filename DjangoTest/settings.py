@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'calculater',
     'AID',
     'captcha',  # 验证码
-    'registration' , # 用户注册
+    'registration',  # 用户注册
     'video',
     'users',
     'myadmin',
@@ -51,26 +51,23 @@ INSTALLED_APPS = [
 
 ]
 
-CRONJOBS=(
+CRONJOBS = (
     # 每一分钟执行一次你的定时函数
-    #('*/ * * * *', 'appname.cron.test'),
+    # ('*/ * * * *', 'appname.cron.test'),
     # 定时函数输出的内容到指定文件（如果该路径或文件不存在将会自动创建）
-    #('0  0 1 * *', 'app名.定时函数所在文件名.定时函数名', '>输出文件路径和名称'),
+    # ('0  0 1 * *', 'app名.定时函数所在文件名.定时函数名', '>输出文件路径和名称'),
     # 在12点10分执行命令
     ('1 7 * * *', 'assistant.cron.wenwen'),
 )
 
-AUTH_USER_MODEL='users.User'
+AUTH_USER_MODEL = 'users.User'
 ACCOUNT_ACTIVATION_DAYS = 7  # 激活账号期限：7天
-
-
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -102,13 +99,13 @@ WSGI_APPLICATION = 'DjangoTest.wsgi.application'
 
 DATABASES = {
     'default': {  # 自己改的
-         'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'test1',
         'USER': 'root',
         'PASSWORD': '123456',
         'HOST': 'localhost',
         'PORT': '3306',
-        'OPTIONS':{'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",}
+        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'", }
     },
 }
 
@@ -149,7 +146,6 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
 
-
 # 当运行 python manage.py collectstatic 的时候
 # STATIC_ROOT 文件夹 是用来将所有STATICFILES_DIRS中所有文件夹中的文件，以及各app中static中的文件都复制过来
 # 把这些文件放到一起是为了用apache等部署的时候更方便
@@ -165,11 +161,10 @@ STATICFILES_FINDERS = (
 
 THUMBNAIL_DEBUG = True
 
-
 SECRET_KEY = 'wg*kgsb5$ok23k3t%g)^2mf6++v(o(j1d%-vfd0k(@f(@jg(qh'
 
 # 文件上传路径
-MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\','/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'upload').replace('\\', '/')
 MEDIA_URL = '/upload/'
 
 # 上传视频最大尺寸

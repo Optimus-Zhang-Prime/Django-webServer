@@ -1,9 +1,6 @@
-from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from . import models, forms
 from django.shortcuts import render, redirect
-import smtplib
-from email.mime.text import MIMEText
 from django.contrib.auth import authenticate  # 用户验证
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
@@ -13,7 +10,9 @@ from users.models import User
 
 
 def homePage(request):
-    return render(request, "yingjian.html")
+    if request.user.is_authenticated:
+        username = request.user.username
+    return render(request, "yingjian.html",locals())
 
 
 # Create your views here.
@@ -97,6 +96,7 @@ def logout(request):
 
 
 def login(request):
+    next = request.GET.get('next', '')
     if request.method == "POST":
         login_form = forms.LoginForm(request.POST)
         if login_form.is_valid():
@@ -107,7 +107,11 @@ def login(request):
                 if user.is_active:
                     auth.login(request, user)
                     messages.add_message(request, messages.SUCCESS, '登录成功')
-                    return redirect('/')
+                    if next == "":
+                        return HttpResponseRedirect("/aid")
+                    else:
+                        return HttpResponseRedirect(next)
+
                 else:
                     messages.add_message(request, messages.WARNING, '账号未启用')
             else:
@@ -153,7 +157,7 @@ def writeRecruitActivity(request):
         user = User.objects.get(username=username)
         if user.type == 2:
             recruitActivity = models.RecruitActivity(User=user)
-            form = forms.RecruitActivityForm(request.POST, instance=trainActivity)
+            form = forms.RecruitActivityForm(request.POST, instance=recruitActivity)
             if form.isvalid():
                 messages.add_message(request, messages.INFO, "招募活动已发布")
                 form.save()
