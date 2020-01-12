@@ -1,4 +1,3 @@
-
 # url声明
 """DjangoTest URL Configuration
 
@@ -19,20 +18,20 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from AID import views
 import video
+
 # django2.0一般不用正则
 
 
 urlpatterns = [
 
-
-    url(r'^aid/',include('AID.urls')),
-    url(r'^admin/', admin.site.urls),  # 管理员
-    url(r'^captcha/',include('captcha.urls')),#验证码
-    url('login/',views.login),
-    url('accounts/',include('registration.backends.default.urls')),
+    url(r'^aid/', include('AID.urls')),
+    url('admin/', admin.site.urls),  # 管理员
+    url('captcha/', include('captcha.urls')),  # 验证码
+    url('login/', views.login),
+    url(r'^accounts/', include('registration.backends.default.urls')),
     url('video/', include('video.urls')),
-    url(r'^myadmin/', include('myadmin.urls')),
+    url('myadmin/', include('myadmin.urls')),
     url('users/', include('users.urls')),
     url('comment/', include('comment.urls')),
-    url('^calculater/',include('calculater.urls')),
- ]
+    url('calculater/', include('calculater.urls')),
+]
