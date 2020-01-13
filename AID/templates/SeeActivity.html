@@ -2,20 +2,11 @@
 {% load staticfiles %}
 {% block title %}活动{% endblock %}
 {% block headmessage %}
-<style>
-    .a1 {
-        font-size: 20px;
-        font-family: 黑体;
-        font-weight: bold;
-    }
-</style>
-
 {% endblock %}
 {% block content %}
 <br>
 <div class="col-md-12 col-xs-12">
     {% for train in TrainActivity %}
-
         <div class="col-md-4 col-xs-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -28,12 +19,30 @@
                 <div class="panel-footer" align="right">
                     <i>
                         <small>{{ train.createDate }}</small>
+                        <a href='../manageTrainActivity{{ train.id }}/'>修改</a>
                     </i>
                 </div>
             </div>
         </div>
-
     {% endfor %}
-
+    {% for recruit in RecruitActivity %}
+        <div class="col-md-4 col-xs-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    招募信息
+                </div>
+                <div class="panel-body">
+                    {{ recruit.title|linebreaks }}<br/>
+                    {{ recruit.description|linebreaks }}
+                </div>
+                <div class="panel-footer" align="right">
+                    <i>
+                        <small>{{ recruit.createDate }}</small>
+                        <a href='../manageRecruitActivity{{ recruit.id }}/'>修改</a>
+                    </i>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}

@@ -20,19 +20,6 @@ class yali(models.Model):
         db_table = 'yali'
 
 
-'''
-class User(AbstractUser):
-    type = models.IntegerField(default=0)  # 0为志愿者，1为培训，2为招募者
-    gender = models.BooleanField(null=True)  # 男为1，女为0
-    signature = models.CharField(null=True, max_length=200)  # 自我介绍
-    work = models.CharField(max_length=30, null=True)  # 职业
-    age = models.IntegerField(null=True)  # 年龄
-    enable = models.BooleanField(default=True)  # 账户是否可用
-    isAttest = models.BooleanField(default=False)  # 账户是否被认证
-    num = models.IntegerField(null=True)  # 备用字段
-
-'''
-
 class TrainActivity(models.Model):
     User = models.ManyToManyField(User)
     title = models.CharField(max_length=50, null=False)
@@ -71,6 +58,7 @@ class RecruitSignupUserList(models.Model):
 class RecruitJoinedUserList(models.Model):
     Activity = models.OneToOneField(TrainActivity, on_delete=models.CASCADE)
     SignUser = models.ManyToManyField(User)
+
 
 class UserSignupTrainList:
     User = models.OneToOneField(User, on_delete=models.CASCADE)

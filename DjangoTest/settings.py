@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'calculater',
     'AID',
-    'captcha',  # 验证码
+ #   'captcha',  # 验证码
     'registration',  # 用户注册
     'video',
     'users',

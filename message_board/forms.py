@@ -1,5 +1,5 @@
 from django import forms
-from captcha.fields import CaptchaField
+#from captcha.fields import CaptchaField
 from .models import Profile
 
 
@@ -8,7 +8,7 @@ class ContactForm(forms.Form):
     user_work = forms.CharField(label="您的职业", max_length=50)
     user_email = forms.EmailField(label="电子邮件")
     user_message = forms.CharField(label="您的意见", widget=forms.Textarea)
-    cap = CaptchaField(label="验证码")
+#   cap = CaptchaField(label="验证码")
 
 
 class LoginForm(forms.Form):

@@ -26,7 +26,7 @@ urlpatterns = [
 
     url(r'^aid/', include('AID.urls')),
     url('admin/', admin.site.urls),  # 管理员
-    url('captcha/', include('captcha.urls')),  # 验证码
+#    url('captcha/', include('captcha.urls')),  # 验证码
     url('login/', views.login),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url('video/', include('video.urls')),
