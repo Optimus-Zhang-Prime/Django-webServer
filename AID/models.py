@@ -60,11 +60,12 @@ class RecruitJoinedUserList(models.Model):
     SignUser = models.ManyToManyField(User)
 
 
-class UserSignupTrainList:
+class UserSignupTrainList(models.Model):
     User = models.OneToOneField(User, on_delete=models.CASCADE)
     TrainActivity = models.ManyToManyField(TrainActivity)
 
 
-class UserSignupRecruitList:
+
+class UserSignupRecruitList(models.Model):
     User = models.OneToOneField(User, on_delete=models.CASCADE)
     TrainActivity = models.ManyToManyField(RecruitActivity)

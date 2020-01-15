@@ -54,16 +54,20 @@ def manageRecruitActivity(request, id):  # 招募活动发布者管理报名人�
 @login_required()
 def signUpTrain(request, id):  # 志愿者报名培训活动
     trainActivity = models.TrainActivity.objects.get(pk=id)
-    if request.user.is_authenticated:
-        username = request.user.username
+    username = request.user.username
+    user = User.objects.get(username=username)
+    Trainsignuplist = TrainSignupUserList.objects.get(Activity=trainActivity)
+    Trainsignuplist.SignUser.add(user)
     try:
-        user = User.objects.get(username=username)
-        signuplist = TrainSignupUserList.objects.get(Activity=trainActivity)
-        signuplist.SignUser.add(user)
-        messages.add_message(request, messages.INFO, "报名成功,请等待主办方审核，完善您的个人资料将有利于审核通过")
+        Usersignuplist = models.UserSignupTrainList.objects.get(User=user)
     except:
-        messages.add_message(request, messages.INFO, "报名失败")
-    return redirect('/1')
+        Usersignuplist = models.UserSignupTrainList()
+        Usersignuplist.User = user
+    #messages.add_message(request, messages.INFO, "报名失败1")
+    Usersignuplist.TrainActivity.add(trainActivity)
+    #messages.add_message(request, messages.INFO, "报名成功,请等待主办方审核，完善您的个人资料将有利于审核通过")
+    #messages.add_message(request, messages.INFO, "报名失败")
+    return redirect('/aid/seeActivity/')
 
 
 @login_required()
@@ -77,7 +81,7 @@ def signUpRecruit(request, id):
         messages.add_message(request, messages.INFO, "报名成功,请等待招募方审核，完善您的个人资料将有利于审核通过")
     except:
         messages.add_message(request, messages.INFO, "报名失败")
-    return redirect('/1')
+    return redirect('/aid/seeActivity/')
 
 
 @login_required(login_url='/login/')
@@ -103,7 +107,6 @@ def writeTrainActivity(request):
             messages.add_message(request, messages.INFO, "权限错误")
     else:
         form = forms.TrainActivityForm()
-
     return render(request, 'write.html', locals())
 
 

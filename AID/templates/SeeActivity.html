@@ -6,6 +6,9 @@
 {% block content %}
 <br>
 <div class="col-md-12 col-xs-12">
+{% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="width: 300px">{{ message }}</div>
+            {% endfor %}
     {% for train in TrainActivity %}
         <div class="col-md-4 col-xs-6">
             <div class="panel panel-primary">
@@ -19,7 +22,8 @@
                 <div class="panel-footer" align="right">
                     <i>
                         <small>{{ train.createDate }}</small>
-                        <a href='../manageTrainActivity{{ train.id }}/'>修改</a>
+                        <a href='../manageTrainActivity{{ train.id }}/'>管理</a>
+                        <a href='../../aid/signuptrain{{ train.id }}/'>报名</a>
                     </i>
                 </div>
             </div>
@@ -38,7 +42,8 @@
                 <div class="panel-footer" align="right">
                     <i>
                         <small>{{ recruit.createDate }}</small>
-                        <a href='../manageRecruitActivity{{ recruit.id }}/'>修改</a>
+                        <a href='../manageRecruitActivity{{ recruit.id }}/'>管理</a>
+                        <a href='../signuprecruit{{ recruit.id }}/'>报名</a>
                     </i>
                 </div>
             </div>

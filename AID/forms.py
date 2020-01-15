@@ -47,3 +47,15 @@ class TrainActivityForm(forms.ModelForm):
         self.fields['title'].label = "主题"
         self.fields['description'].label = "详细介绍"
         self.fields['ActivityDate'].label = "日期"
+
+class RecruitActivityForm(forms.ModelForm):
+    class Meta:
+        model = TrainActivity
+        fields = ['title', 'description', 'ActivityDate']
+        widgets = {'ActivityDate': Date()}
+
+    def __init__(self, *args, **kwargs):
+        super(RecruitActivityForm, self).__init__(*args, **kwargs)
+        self.fields['title'].label = "主题"
+        self.fields['description'].label = "详细介绍"
+        self.fields['ActivityDate'].label = "日期"

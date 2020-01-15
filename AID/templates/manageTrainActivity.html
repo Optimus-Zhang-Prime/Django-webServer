@@ -2,19 +2,15 @@
 {% load staticfiles %}
 {% block title %}活动{% endblock %}
 {% block headmessage %}
-<style>
-    .a1 {
-        font-size: 20px;
-        font-family: 黑体;
-        font-weight: bold;
-    }
-</style>
+    <a>活动报名者</a>
 {% endblock %}
 {% block content %}
-<br>
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="width: 300px">{{ message }}</div>
+    {% endfor %}
 <div class="col-md-12 col-xs-12">
-    {% for userlist in allsignupUserlist %}
-    <a>{{userlist.username}}</a><br>
+    {% for user in allsignupUserlist %}
+    <a>{{user.username}}</a>&nbsp;<a href="../aid/ratify{{ user.id }}">同意</a> <br>
     {% endfor %}
 </div>
 {% endblock %}
