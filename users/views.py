@@ -6,12 +6,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import *
 from django.views import generic
-
-
 from .models import Feedback
-
 from .forms import ProfileForm, SignUpForm, UserLoginForm, ChangePwdForm, SubscribeForm, FeedbackForm
-
 User = get_user_model()
 
 def login(request):

@@ -1,28 +1,100 @@
-{% extends 'base.html' %}
-{% block title %}hello{% endblock %}
-{% block headmessage %}
-    <style>
-        .a1 {
-            font-size: 30px;
-            font-family: 黑体
-        }
+<!DOCTYPE html>
+{% load staticfiles %}
+<html style="width: 100%;height: 100%;">
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body style="background-image: url({% static 'img/bg.png'%});background-size:100% 100%;width: 100%;height: 100%;">
+		<div id="top" style="height:8vh;width: 100vw;">
+			<div id="top_left" style="width: 15%;height: 100%;float: left;">
+				<img src={% static "img/logo1.png" %}  width="90%" />
+			</div>
+			<div id="top_mid" style="width: 50%;height: 100%;float: left;color: white;font-size: 1vw;">
+				<div style="display: table;width: 100%;height: 100%;float: left;color: white;">
+					<div style="display: table-cell;vertical-align: middle;">
+						<div style="width: 100%;height: 50%;">
+							<div style="width:25%;font-size: 1.5vw;text-align: -webkit-center;float: left;"><a href="../video" style="color: white;text-decoration: none">AID急救教学介绍</a></div>
+							<div style="width:25%;font-size: 1.5vw;text-align: -webkit-center;float: left;float: left;float: left;cursor: pointer;"><a href="../video" style="color: white;text-decoration: none">急救教学视频</a></div>
+							<div style="width:25%;font-size: 1.5vw;text-align: -webkit-center;float: left;float: left;cursor: pointer;"><a href="../aid/seeActivity/" style="color: white;text-decoration: none">培训/招募 资讯</a></div>
+							<div style="width:25%;font-size: 1.5vw;text-align: -webkit-center;float: left;color: royalblue;cursor: pointer;">AID急救教学硬件端</div>
 
-        .a2 {
-            font-size: 20px;
-            font-family: 华文行楷
-        }
-    </style>
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-    {% endfor %}
-    <h1>AID网站首页</h1><br>
-{% endblock %}
-{% block content %}
-    <a href="aid/seeActivity/" class="a1">查看活动</a><br>
-{% if user.type %}
-    <a href="aid/writeTrainActivity/" class="a1">发布培训活动</a><br><br>
-{% endif %}
-{% if ans %}
-    <a href="aid/writeRecruitActivity/" class="a2">发布招募活动</a>
-{% endif %}
-{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="top_right" style="width: 35%;height: 100%;float: left;">
+				<div style="display: table;width: 100%;height: 100%;float: left;color: white;font-size: 1vw;">
+					<div style="display: table-cell;vertical-align: middle;">
+						<div style="width: 100%;height:60%;margin-left: 2vw;">
+                    {% if username %}
+                        <b style="float: left;width: 40%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">欢迎：{{ username }}</b>
+                        <a href="../aid/userinfo/"><button type="button" style="float: left;width: 30%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">
+                            <span class="glyphicon glyphicon-user"></span>我的信息
+                        </button></a>
+                        <a href="../aid/logout/"><button type="button" style="float: left;width: 30%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">
+                            <span class="glyphicon glyphicon-user"></span>退出登录
+                        </button></a>
+                    {% else %}
+                        <a href="../../../accounts/register/"><button type="button"  style="float: left;width: 40%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">
+                            <span class="glyphicon glyphicon-user"></span>注册账户
+                        </button></a>
+                        <a href="../../login?next=aid"><button type="button" class="btn btn-primary btn-lg"  style="float: left;width: 40%;background: none;border-color: white;border-radius: 1vh;color: white;border-width: 1.5px;height: 100%;">
+                            <span class="glyphicon glyphicon-user"></span>用户登录
+                        </button></a>
+                    {% endif %}
+                    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="middle" style="height:80vh;width: 100vw;color: white;">
+			<div style="width:50%;height: 100%;display: table;float: left;">
+				<div style="display: table-cell;vertical-align: middle;width:100%;height: 100%;">
+					<div style="height:30%;width: 80%;margin: 20%;">
+						<div style="height: 30%;font-size: 2vw;text-align: left;">欢迎使用</div>
+						<div style="height: 50%;font-size: 4vw;text-align: left;">AID急救教学硬件</div>
+						<div style="height: 20%;font-size: 1vw;text-align: left;">了解更多</div>
+					</div>
+				</div>
+			</div>
+			<div style="width:50%;height: 100%;float: left;">
+				<img src="" />
+			</div>
+
+		</div>
+
+
+		<div id="bottom" style="height:10vh;width: 100vw;color: white;background-image: url({% static " img/base.png" %});">
+			<div style="height:10vh;width: 30vw;display: table;float: left;">
+				<div style="display: table-cell;vertical-align: middle;width:100%;height:100%;">
+					<div style="width:100%;height: 20%;text-align: right;font-size: 1vw;">请先<a href="../aid/login/" style="color: royalblue;cursor: pointer;">登录</a>，再输入设备序列号</div>
+				</div>
+
+			</div>
+			<div style="height:10vh;width: 28vw;display: table;float: left;">
+				<div style="display: table-cell;vertical-align: middle;width:100%;height:100%;">
+					<input id="device" type="text" style="width:100%;height:50%;border-radius: 5px;margin-left: 2vw;color: gray;"placeholder="设备序列号"/>
+				</div>
+			</div>
+			<div style="height:10vh;width: 38vw;display: table;float: left;">
+				<div style="display: table-cell;vertical-align: middle;width:100%;height: 70%;margin-left: 2vw;">
+					<button style="margin-left: 20%; width:30%;height:50%;color: white;border-radius: 1vh;border: none;background-image: url({% static 'img/button.png'%});cursor: pointer;"onclick="denglu()">登录设备</button>
+				</div>
+
+			</div>
+		</div>
+
+	</body>
+	<script>
+		function denglu(){
+			var x = document.getElementById("device").value;
+			if(x==1)
+			window.location.href='view.html';
+			//alert("欢迎进入硬件数据界面");
+			else alert("设备序列号输入错误");
+			
+		}
+	</script>
+</html>

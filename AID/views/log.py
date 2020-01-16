@@ -11,7 +11,7 @@ from users.models import User
 def homePage(request):
     if request.user.is_authenticated:
         username = request.user.username
-    return render(request, "yingjian.html", locals())
+    return render(request, "homePage.html", locals())
 
 
 # Create your views here.
@@ -25,6 +25,10 @@ def showdata(request):
         pressArr.append(pow(apress.press / 100, 0.5))
     return render(request, "chart.html", locals())
 
+def detail(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+    return render(request, "detail.html", locals())
 
 @login_required(login_url='/login/')
 def logout(request):

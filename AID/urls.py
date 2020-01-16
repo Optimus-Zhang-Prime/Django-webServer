@@ -10,6 +10,7 @@ urlpatterns = [re_path('read/', views.showdata),
                re_path('manageTrainActivity(\d+)/',views.manageTrainActivity),
                re_path('manageRecruitActivity(\d+)/',views.manageRecruitActivity),
                re_path('userinfo/', views.userinfo),
+               re_path('detail/', views.detail),
                re_path('logout/', views.logout),
                re_path(r'', views.homePage),
                ]

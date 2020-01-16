@@ -51,7 +51,7 @@ class RecruitActivity(models.Model):
 
 
 class RecruitSignupUserList(models.Model):
-    Activity = models.OneToOneField(TrainActivity, on_delete=models.CASCADE)
+    Activity = models.OneToOneField(RecruitActivity, on_delete=models.CASCADE)
     SignUser = models.ManyToManyField(User)
 
 
