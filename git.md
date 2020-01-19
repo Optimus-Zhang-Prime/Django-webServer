@@ -3,22 +3,22 @@ title: 方法:Github网站及桌面客户端的使用
 date: 2020-01-21
 ---
 
-#Github网站及桌面客户端的使用 
+# Github网站及桌面客户端的使用 
 
-###什么是GitHub
+### 什么是GitHub
 Github为开发者提供Git仓库的托管服务，是一个让开发者与朋友、同事、同学及陌生人共享代码的完美场所。 
 
 Github上公开的软件源代码全部由Git进行管理，因此理解Git是熟练使用Github的关键所在。本文不对Git过多赘述，假如您对git不甚了解，请先阅读：
 [git教程](https://www.runoob.com/git/git-tutorial.html)
 
 
-##Github网站的使用
+## Github网站的使用
 
-###1.注册Github
+### 1.注册Github
 使用电子邮件注册GitHub账户
 [注册网址](https://github.com/)  
 
-###2.创建代码仓库
+### 2.创建代码仓库
 点击绿色‘New’按钮创建仓库  
 
 ![new](http://i2.tiimg.com/708163/73d599887d1b1064.png)  
@@ -28,7 +28,7 @@ Github上公开的软件源代码全部由Git进行管理，因此理解Git是�
 
 ![mode](http://i1.fuimg.com/708163/3416da0792532e6b.png)
 
-###3.Hello Github!
+### 3.Hello Github!
 点击create new file  
 ![Markdown](http://i1.fuimg.com/708163/66eec967068e18cb.jpg)    
 
@@ -36,7 +36,7 @@ Github上公开的软件源代码全部由Git进行管理，因此理解Git是�
 ![Markdown](http://i1.fuimg.com/708163/aef21e60fb9aac10.png)
 
 
-###4.探索开源世界
+### 4.探索开源世界
 点击Explore可以看到较为流行的开源项目   
 
 ![Markdown](http://i1.fuimg.com/708163/bb5a2beb62cabeeb.jpg)
@@ -45,9 +45,9 @@ Github上公开的软件源代码全部由Git进行管理，因此理解Git是�
   
 ![Markdown](http://i2.tiimg.com/708163/c87c2164fc58a7af.jpg)  
 
-##使用GitHub客户端
+## 使用GitHub客户端
 
-###客户端下载
+### 客户端下载
 [官方下载链接](https://desktop.github.com/)  
 
 加入官方链接因网络原因无法下载，可以使用：  
@@ -56,7 +56,7 @@ Github上公开的软件源代码全部由Git进行管理，因此理解Git是�
 
 
 
-###我们首先来新创建一个仓库：
+### 我们首先来新创建一个仓库：
 
 1、点击左上角的File —> New repository，创建一个新的代码库，填写相应的信息： 
 
@@ -75,7 +75,7 @@ Github上公开的软件源代码全部由Git进行管理，因此理解Git是�
 
 上传完后，新建的仓库已经成功提交到GitHub，登录GitHub网站，进入仓库（点击右上角头像，选择repositories），可以看到我们刚刚创建的仓库了。  
 
-###拓展阅读
+### 拓展阅读
 Jetbrains公司大多数IDE具有一键上传代码到Github的功能，例如：[Pycharm链接Github](https://blog.csdn.net/beyond_f4/article/details/80626440)  
 
 
