@@ -9,8 +9,8 @@
         <div class="alert alert-{{ message.tags }}" style="width: 300px">{{ message }}</div>
     {% endfor %}
 <div class="col-md-12 col-xs-12">
-    {% for us in userlist %}
-    <b>{{us.username}}</b>&nbsp;<a href="../../aid/trainratify{{ trainActivity.id }}and{{ user.id }}">接受报名</a> <br>
+    {% for user in allsignupUserlist %}
+    <b>{{user.username}}</b>&nbsp;<a href="../../aid/{{ recruitActivity.id }}recruitratify{{ user.id }}">接受报名</a> <br>
     {% endfor %}
 </div>
 {% endblock %}

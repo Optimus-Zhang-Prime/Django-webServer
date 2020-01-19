@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}活动{% endblock %}
+{% block headmessage %}
+{% endblock %}
+{% block content %}
+<div class="col-md-12 col-xs-12">
+    {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="width: 300px">{{ message }}</div>
+    {% endfor %}
+    <h5>已报名的培训活动:</h5>
+    {% for trainactivity in trainActivity %}
+        <b>{{ trainactivity.title }}</b><br/>
+    {% endfor %}
+    <br/>
+    <h5>已报名的招募活动:</h5>
+    {% for recruitactivity in recruitActivity %}
+        <b>{{ recruitactivity.title }}</b><br/>
+    {% endfor %}
+</div>
+{% endblock %}
