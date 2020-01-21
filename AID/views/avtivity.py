@@ -26,6 +26,7 @@ def seeActivity(request):  # 显示培训和招募活动
     return render(request, "SeeActivity.html", locals())
 
 
+@login_required()
 def myActivity(request):  # 已报名的活动
     username = request.user.username
     try:
@@ -48,8 +49,8 @@ def manageTrainActivity(request, id):  # 培训活动发布者管理报名人员
     manager = User.objects.filter(trainactivity=trainActivity)[0]
     if request.user.type == 1 and manager.username == username:  # 判断是否是该活动的发起者
         list = models.TrainSignupUserList.objects.get(Activity=trainActivity)
-        userlist=list.SignUser.all()
-        #allsignupUserlist = User.objects.filter(trainsignupuserlist=list)
+        userlist = list.SignUser.all()
+        # allsignupUserlist = User.objects.filter(trainsignupuserlist=list)
     else:
         messages.add_message(request, messages.INFO, "您没有权限对该活动进行管理")
     return render(request, "manageTrainActivity.html", locals())

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{% load staticfiles %}
 <html style="height: 100%;width: 100%;">
 	<head>
 		<meta charset="UTF-8">
@@ -7,7 +6,7 @@
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"> </script>
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+		
 
 	</head>
 	<body style="height: 100%;width: 100%; background-color: rgb(38, 58, 71);overflow: hidden;margin-left: 0;margin-top: 0;">
@@ -30,12 +29,12 @@
 					</div>
 					<div style="width: 100%;text-align: center;height: 12%;cursor: pointer;" id="2" onmouseover="over(2)" onmouseout="out(2)"
 					 onclick="page2()">
-						<img src="{% static "img/icon1.png" %}" style="width: 20%;margin-top: 30%;" />
+						<img src="icon1.png" style="width: 20%;margin-top: 30%;" />
 					</div>
 				</div>
 
 				<div style="width: 100%;background-color: rgb(18, 30, 39);height: 10%;text-align: center;cursor: pointer;" onclick="window.location.href='登录.html'">
-					<img src="{% static "img/icon2.png" %}" style="width: 25%;margin-top: 30%;" />
+					<img src="icon2.png" style="width: 25%;margin-top: 30%;" />
 				</div>
 
 			</div>
@@ -43,21 +42,21 @@
 			<div id="view" style="width: 95%;height: 100%;float: left;">
 				<div id="div1" style="width: 15%;height: 30%;position: absolute;top: 10%;left: 5%;background: #121e27;left:8%;top: 15%;">
 					<div style="width: 100%;height: 10%;">
-						<div id="move1" style="width: 10%;height: 100%;background: url({% static "img/move.png" %});background-size: 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;"></div>
+						<div id="move1" style="width: 10%;height: 100%;background: url(move.png);background-size: 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;"></div>
 
 					</div>
 					<div style="width: 100%;height:50%;text-align: center;">
 						<img id="touxiang" style="height: 80%;margin-top: 10%;" />
 					</div>
 					<div id="id" style="width: 100%;height: 15%;text-align: center;color: white;font-size: 1vw;">
-						欢迎您{{ username }}
+						欢迎您
 					</div>
 
 					<div style="width: 100%;height: 25%;text-align: center;color:dodgerblue;font-size: 1vw;">学员/救护员</div>
 				</div>
 				<div id="div2" style="width: 20%;height: 40%;position: absolute;background: #192934;left:25%;top: 15%;">
 					<div style="width: 100%;height: 10%;">
-						<div id="move2" style="width: 10%;height: 100%;background: url({% static "img/move.png" %}) no-repeat;background-size: , 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
+						<div id="move2" style="width: 10%;height: 100%;background: url(move.png) no-repeat;background-size: , 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
 						<div style="width:75%;height: 100%;float: left;text-align: center;color: white;font-size:1.5vw;margin-top: 2%;">我的评分</div>
 						<div style="width: 10%;height: 100%;background: url({% static "img/settings.png" %}) no-repeat;background-size: , 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
 					</div>
@@ -98,9 +97,9 @@
 				<div id="div4" style="width: 23%;height: 60%;position: absolute;background: #192934;left:47%;top: 15%;">
 					<div style="width: 100%;height: 10%;margin-top:5%">
 						<div style=""></div>
-						<div id="move4" style="width: 10%;height: 100%;background: url({% static "img/move.png" %}) no-repeat;background-size: , 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
+						<div id="move4" style="width: 10%;height: 100%;background: url(move.png) no-repeat;background-size: , 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
 						<div style="width:76%;height: 100%;float: left;text-align: center;color: white;font-size:1.5vw;margin-top: 2%;">我的报名</div>
-						<div style="width: 10%;height: 100%;background: url({% static "img/settings.png" %}) no-repeat;background-size:, 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
+						<div style="width: 10%;height: 100%;background: url(settings.png) no-repeat;background-size:, 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
 					</div>
 					<div style="width: 100%;height:87%;text-align: center;background: #121e27">
 						<div class="panel-group" id="accordion">
@@ -108,7 +107,7 @@
 								<div class="panel-heading" style="background:#121e27;border: #121e27;color:white">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="text-decoration:none">
-											已报名的活动
+											已报名的培训活动
 										</a>
 									</h4>
 								</div>
@@ -117,13 +116,7 @@
                                         {% for trainactivity in trainActivity %}
 										<div id="baoming1" >
 											<div id="baoming1_time"style="color:dodgerblue;font-size:0.5vw;"> {{ trainactivity.ActivityDate }}</div>
-											<div id="baoming1_name"style="font-size:1.5vw;"> {{ trainactivity.title }}</div>
-										</div>
-                                        {% endfor %}
-                                        {% for recruitactivity in recruitActivity %}
-										<div id="baoming2" >
-											<div id="baoming2_time"style="color:dodgerblue;font-size:0.5vw;"> {{ recruitactivity.ActivityDate }}</div>
-											<div id="baoming2_name"style="font-size:1.5vw;"> {{ recruitactivity.title }}</div>
+											<div id="baoming1_name"style="font-size:1vw;"> {{ trainactivity.title }}</div>
 										</div>
                                         {% endfor %}
 									</div>
@@ -178,14 +171,14 @@
 									</div>
 								</div>
 							</div>
-
+						
 
 					</div>
 				</div>
 				<div id="div5" style="width: 23%;height: 80%;position: absolute;background: #192934;left:73%;top: 15%;">
 					<div style="width: 100%;height: 10%;margin-top:5%">
-
-						<div id="move5" style="width: 10%;height: 100%;background: url({% static "img/move.png" %}) no-repeat;background-size: , 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
+						
+						<div id="move5" style="width: 10%;height: 100%;background: url(move.png) no-repeat;background-size: , 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
 						<div style="width:76%;height: 100%;float: left;text-align: center;color: white;font-size:1.5vw;margin-top: 2%;">我的活动记录</div>
 						<div style="width: 10%;height: 100%;background: url(settings.png) no-repeat;background-size:, 100%;margin-left: 2%;margin-top: 2%;cursor: pointer;float: left;"></div>
 					</div>
@@ -196,7 +189,7 @@
 								<div id="huodong1_loc" style="width: 100%;height: 60%;color: dodgerblue;font-size:0.8vw"></div>
 							</div>
 							<div style="width: 25%;height: 100%;float: left;">
-
+								
 							</div>
 						</div>
 						<div id="huodong2" style="width: 100%;height: 20%;">
@@ -205,7 +198,7 @@
 								<div id="huodong2_loc" style="width: 100%;height: 60%;color: dodgerblue;font-size:0.8vw"></div>
 							</div>
 							<div style="width: 25%;height: 100%;float: left;">
-
+								
 							</div>
 						</div>
 						<div id="huodong3" style="width: 100%;height: 20%;">
@@ -214,7 +207,7 @@
 								<div id="huodong3_loc" style="width: 100%;height: 60%;color: dodgerblue;font-size:0.8vw"></div>
 							</div>
 							<div style="width: 25%;height: 100%;float: left;">
-
+								
 							</div>
 						</div>
 						<div id="huodong4" style="width: 100%;height: 20%;">
@@ -223,7 +216,7 @@
 								<div id="huodong4_loc" style="width: 100%;height: 60%;color: dodgerblue;font-size:0.8vw"></div>
 							</div>
 							<div style="width: 25%;height: 100%;float: left;">
-
+								
 							</div>
 						</div>
 						<div id="huodong5" style="width: 100%;height: 20%;">
@@ -232,7 +225,7 @@
 								<div id="huodong5_loc" style="width: 100%;height: 60%;color: dodgerblue;font-size:0.8vw"></div>
 							</div>
 							<div style="width: 25%;height: 100%;float: left;">
-
+								
 							</div>
 						</div>
 
@@ -252,6 +245,7 @@
 		<script>
 			//欢迎
 			document.getElementById("touxiang").src = "logo2.png" //头像
+			document.getElementById('id').innerHTML = '欢迎您' + ' ' + 'stranger' //名字
 			//圆环百分比的绘图
 			var e = 80; //设置百分比即可
 			var Chart4 = echarts.init(document.getElementById('chart4'));
@@ -348,20 +342,19 @@
 			document.getElementById('huodong5_name').innerHTML = huodongname[4];
 			document.getElementById('huodong5_loc').innerHTML = loc[4];
 			//报名
-            /*
 			var baoming_time=['xxxxx','xxxxxx','xxxxxx'];
-
+			
 			var baoming_name=['xxxxx','xxxxxx','xxxxxx'];
-
+			
 			document.getElementById('baoming1_time').innerHTML = baoming_time[0];
 			document.getElementById('baoming1_name').innerHTML = baoming_name[0];
-
+			
 			document.getElementById('baoming2_time').innerHTML = baoming_time[1];
 			document.getElementById('baoming2_name').innerHTML = baoming_name[1];
-
+			
 			document.getElementById('baoming3_time').innerHTML = baoming_time[2];
 			document.getElementById('baoming3_name').innerHTML = baoming_name[2];
-		*/
+		
 			//托拽
 			function drag(div, move) {
 				var omov = document.getElementById(move)
