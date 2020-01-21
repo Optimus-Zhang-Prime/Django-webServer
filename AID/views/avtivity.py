@@ -22,7 +22,6 @@ def seeActivity(request):  # 显示培训和招募活动
             rdic[rc] = r.username
         except:
             rdic[rc] = "活动已失效"
-
     return render(request, "SeeActivity.html", locals())
 
 
