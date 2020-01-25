@@ -19,10 +19,11 @@ class yali(models.Model):
     class Meta:
         db_table = 'yali'
 
+
 class message(models.Model):
-    User = models.ForeignKey(User,on_delete=models.CASCADE)
-    content=models.CharField(max_length=100)
-    sender=models.CharField(max_length=40)
+    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.CharField(max_length=100)
+    sender = models.CharField(max_length=40)
 
 
 class TrainActivity(models.Model):
@@ -68,7 +69,6 @@ class RecruitJoinedUserList(models.Model):
 class UserSignupTrainList(models.Model):
     User = models.OneToOneField(User, on_delete=models.CASCADE)
     TrainActivity = models.ManyToManyField(TrainActivity)
-
 
 
 class UserSignupRecruitList(models.Model):
