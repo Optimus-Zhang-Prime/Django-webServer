@@ -25,6 +25,8 @@ def showdata(request):
         pressArr.append(pow(apress.press / 100, 0.5))
     return render(request, "chart.html", locals())
 
+@login_required()
+def sendmessage(request):
 
 
 def detail(request):
