@@ -34,4 +34,5 @@ urlpatterns = [
     url('users/', include('users.urls')),
     url('comment/', include('comment.urls')),
     url('calculater/', include('calculater.urls')),
+    url('agriculture/',include('agriculture.urls'))
 ]

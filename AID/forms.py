@@ -1,12 +1,12 @@
 from django import forms
-#from captcha.fields import CaptchaField
+# from captcha.fields import CaptchaField
 from .models import User, TrainActivity, RecruitActivity
 
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['gender', 'work', 'signature', "age","type"]
+        fields = ['gender', 'work', 'signature', "age", "type"]
 
     type = forms.fields.ChoiceField(
         choices=((0, "志愿者"), (1, "培训方"), (2, "招募方"),),
@@ -18,11 +18,11 @@ class ProfileForm(forms.ModelForm):
         label="性别",
         widget=forms.widgets.Select()
     )
+
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.fields['work'].label = "职业"
         self.fields['age'].label = "年龄"
-
 
         self.fields['signature'].label = "自我介绍"
 
@@ -30,6 +30,11 @@ class ProfileForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField(label="用户名")
     password = forms.CharField(label="密码", widget=forms.PasswordInput)
+
+
+class MessForm(forms.Form):
+    username = forms.CharField(label="收件人用户名")
+    mess = forms.CharField(label="内容")
 
 
 class Date(forms.DateInput):
@@ -47,6 +52,7 @@ class TrainActivityForm(forms.ModelForm):
         self.fields['title'].label = "主题"
         self.fields['description'].label = "详细介绍"
         self.fields['ActivityDate'].label = "日期"
+
 
 class RecruitActivityForm(forms.ModelForm):
     class Meta:

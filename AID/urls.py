@@ -14,6 +14,7 @@ urlpatterns = [re_path('read/', views.showdata),
                re_path('myActivity/',views.myActivity),
                re_path('userinfo/', views.userinfo),
                re_path('detail/', views.detail),
+               re_path('sendmess/', views.sendmessage),
                re_path('logout/', views.logout),
                re_path(r'^$', views.homePage),
                ]

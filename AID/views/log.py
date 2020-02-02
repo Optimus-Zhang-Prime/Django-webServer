@@ -27,6 +27,25 @@ def showdata(request):
 
 @login_required()
 def sendmessage(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+    if request.method == "POST":
+        mess_form = forms.MessForm(request.POST)
+        if mess_form.is_valid():
+            toname = request.POST['username']
+            content = request.POST['mess']
+            try:
+                touser = User.objects.get(username=toname)
+                m=models.message.objects.create(User=touser,content=content,sender=request.user)
+                touser.message_set.add(m)
+                messages.add_message(request, messages.INFO, '发送成功')
+            except:
+                messages.add_message(request, messages.WARNING, '发送失败')
+        else:
+            messages.add_message(request, messages.INFO, '请输入完整有效的内容')
+    else:
+        mess_form = forms.MessForm()
+    return render(request, "sendmess.html", locals())
 
 
 def detail(request):

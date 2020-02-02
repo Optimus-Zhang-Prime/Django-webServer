@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django_apscheduler',
     'django_crontab',
     'chunked_upload',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    'agriculture'
 
 ]
 

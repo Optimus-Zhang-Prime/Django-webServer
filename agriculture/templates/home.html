@@ -1,0 +1,687 @@
+{% include 'Agriheader.html' %}
+<style type="text/css">
+    .page-main {
+        height:100%;
+    }
+</style>
+<!-- content start -->
+<div class="page-content" style="height: 100%;">
+    <div class="col-lg-3 page-height" style="padding:0 8px;">
+        <div class="main-left page-height">
+            <h3>设备列表</h3>
+            <div class="row device-search">
+                <form action="{:Url('index')}" method="get">
+                    <div class="form-group clearfix">
+                        <div class="col-lg-10" style="padding-left: 0;">
+                            <input type="text" name="search_param" value="{$search_param}" class="form-control" placeholder="请输入设备名称或SN" />
+                        </div>
+                        <div class="col-lg-2"><button type="submit" class="btn btn-primary">搜索</button></div>
+                    </div>
+                </form>
+            </div>
+            <div class="device-list">
+                {volist name="deviceList" id="vo"}
+                <div class="device-div clearfix">
+                    <div class="device-status device-offline" id="dev_{$vo.devid}"></div>
+                    <div class="device-info">
+                        <div class="device-name {if condition='$vo.devid == $device.device.deviceId'}active{/if}"><a href="{:Url('index',array('devid'=>$vo.devid,'search_param'=>$search_param,'curPage'=>$curPage))}">{$vo.name}</a></div>
+                        <div class="device-number">{$vo.devid}</div>
+                    </div>
+                </div>
+                {/volist}
+                <div class="device-page clearfix">
+                    {if condition="$deviceTotal gt 0"}
+                    {$devicePage}<span style="margin-left: 10px;">共{$deviceTotal}条</span>
+                    {else/}
+                    暂无数据
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 page-height" style="padding:0 8px;">
+        <div class="main-right page-height">
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href="#timeData" data-toggle="tab">实时数据</a></li>
+                <li><a href="#history" data-toggle="tab">历史数据</a></li>
+                <li><a href="#scada" data-toggle="tab">组态画面</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="timeData">
+                    <div class="device-content">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>变量</th>
+                                    <th>从机名称</th>
+                                    <th>更新时间</th>
+                                    <th>当前值</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {volist name="deviceInfo" id="voSlaves"}
+                                    {volist name="voSlaves['iotDataDescription']" id="voDatas"}
+                                    <tr>
+                                        <td>
+                                            <h4>{$voDatas.name}</h4>
+                                            <p>变量ID：{$voDatas.iotModbusDataCmd.dataid}</p>
+                                        </td>
+                                        <td>{$voSlaves.slaveName}</td>
+                                        <td id="time_{$device.device.deviceId}_{$voSlaves.slaveIndex}_{$voDatas.iotModbusDataCmd.dataid}"></td>
+                                        <td id="data_{$device.device.deviceId}_{$voSlaves.slaveIndex}_{$voDatas.iotModbusDataCmd.dataid}" data-devid="{$device.device.deviceId}" data-slaveIndex="{$voSlaves.slaveIndex}" data-dataid="{$voDatas.iotModbusDataCmd.dataid}"  data-itemId="{$voDatas.iotModbusDataCmd.itemId}" data-type="{$voDatas.type}" data-writeRead="{$voDatas.iotModbusDataCmd.writeRead}" data-alarm="0"></td>
+                                        <td><button type="button" class="btn btn-primary" onclick="queryDataPoint('{$device.device.deviceId}', [{dataPointId:'{$voDatas.iotModbusDataCmd.dataid}',slaveIndex:'{$voSlaves.slaveIndex}',itemId:'{$voDatas.iotModbusDataCmd.itemId}'}])">主动采集</button></td>
+                                    </tr>
+                                    {/volist}
+                                {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="history">
+                    <div class="device-content">
+                        <div class="device-history-search">
+                            <div class="form-group">
+                                <label class="label">从机：</label>
+                                <select class="form_input" name="slaveIndex" id="slaveIndex" onchange="getDatas()">
+                                    {if condition="isset($device.deviceSlaves)"}
+                                    {volist name="device.deviceSlaves" id="voSlaves"}
+                                    <option value="{$voSlaves.slaveIndex}">{$voSlaves.slaveName}</option>
+                                    {/volist}
+                                    {/if}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">变量：</label>
+                                <div class="page-top-menu dropdown" id="dropdown-dataid" style="display: inline-block;">
+                                    <span class="profile" data-toggle="dropdown" data-target="dropdown-dataid"><span style="padding-right: 5px;" id="dataid-total">请选择变量</span><i class="caret"></i></span>
+                                    <ul class="dropdown-menu" id="data-ul">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="label">时间：</label>
+                                <div id="reportrange" class="pull-right form-control start_time with-danger-addon" style="float:none !important;display: inline-block;width:auto;">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="form-group"><button type="button" class="btn btn-primary" onclick="getDataHistory()">搜索</button></div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="data-history-chart">
+                            <div id="history-chart"></div>
+                        </div>
+                        <div class="data-history-page">
+                            <div id="history-page"></div>
+                        </div>
+                        <div class="data-history-table">
+                            <ul id="historyTab" class="nav nav-tabs"></ul>
+                            <div id="historyTabContent" class="tab-content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="scada">
+                    <div class="device-content" style="overflow: hidden">
+                        {volist name="deviceScada" id="vo"}
+                        <iframe id="iframe_{$i-1}" width="100%" height="100%" scrolling="no" frameborder="0" data-src="https://mp.usr.cn/usr-draw/show.html?lightbox=1&title={$vo.name}&usr_id={$vo.id}&usr_link={$vo.link}&usr_model={$vo.model}&usr_devid={$device.device.deviceId}&usr_devTemplateId={$vo.dateTemplateId}#A" ></iframe>
+                        {/volist}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //时间选择
+    $('#reportrange span').html(moment().subtract(1, 'hours').format('YYYY-MM-DD HH:mm:ss') + '~' + moment().format('YYYY-MM-DD HH:mm:ss'));
+    $('#reportrange').daterangepicker({
+        startDate: moment().subtract(5, 'minute'),
+        endDate: moment(),
+        locale: {
+            format: 'YYYY-MM-DD HH:mm:ss'
+        },
+        timePicker: true,
+        opens:'right',
+        ranges: {
+            '最近5分钟': [moment().subtract(5, 'minute'), moment()],
+            '最近2小时': [moment().subtract(2, 'hours'), moment()],
+            '今天': [moment().subtract((moment().unix()) % (3600 * 24) + 3600 * 8, 'seconds'), moment()]
+        }
+    }, function(start, end) {
+        $('#reportrange span').html(start.format('YYYY-MM-DD HH:mm:ss') + '~' + end.format('YYYY-MM-DD HH:mm:ss'));
+    });
+
+    //设备状态存储
+    var deviceStatus = {$deviceStatus}||[];
+    setDeviceStatus();
+    //处理设备状态
+    function setDeviceStatus() {
+        for(var i=0;i<deviceStatus.length;i++){
+            getDeviceStatus(deviceStatus[i]);
+        }
+    }
+
+    //JSSDK相关操作
+    var usrSdk = new USRSDK();
+    //初始化
+    usrSdk.Jssdk_init.initJssdk("{:session('account')}", "{:session('token')}", "{:config('dispatchServer')}");
+
+    //查询设备变量最后一条数据
+    usrSdk._jssdk.getLastDataHistory({$devPoints}, function (data) {
+        if(data.status === 0 && data.data.total > 0){
+            var result = data.data.list;
+            for(var i in result){
+                var time = '--';
+                var value = '--';
+                if(result[i]['time'] || result[i]['time'] ==0){
+                    time = new Date(result[i]['time']).format('yyyy-MM-dd hh:mm:ss');
+                }
+                if(result[i]['value'] || result[i]['value'] ==0){
+                    value = result[i]['value'];
+                }
+                var datas = {
+                    devId:result[i]['deviceNo'],
+                    slaveIndex:result[i]['slaveIndex'],
+                    dataPointId:result[i]['dataPointId'],
+                    itemId:result[i]['itemId'],
+                    time:time,
+                    value:value
+                };
+                setDeviceDatas(datas);
+            }
+        }
+    });
+
+    //监听设备变量数据
+    usrSdk._jssdk.addListener('deviceData', {deviceNos: ["{$device.device.deviceId}"]}, function (data) {
+        var dataPoints = data.dataPoints;
+        for (var i in dataPoints) {
+            var datas = {
+                devId: data.devId,
+                slaveIndex: dataPoints[i]['slaveIndex'],
+                dataPointId: dataPoints[i]['dataPointId'],
+                itemId: dataPoints[i]['itemId'],
+                time: new Date(dataPoints[i].time * 1000).format('yyyy-MM-dd hh:mm:ss'),
+                value: dataPoints[i]['value']
+            };
+            setDeviceDatas(datas);
+        }
+    });
+
+    //监听设备上下线
+    usrSdk._jssdk.addListener('online', {usernames:["{:session('account')}"]}, function (data) {
+        for(var i=0;i<deviceStatus.length;i++){
+            if(deviceStatus[i]['devid'] == data['devId']){
+                deviceStatus[i]['deviceStatus']['onlineOffline'] = data['status'];
+                getDeviceStatus(deviceStatus[i]);
+            }
+        }
+    });
+
+    //监听设备报警
+    usrSdk._jssdk.addListener('alarm', {usernames:["{:session('account')}"]}, function (data) {
+        console.log(data);
+        for(var i=0;i<deviceStatus.length;i++){
+            if(deviceStatus[i]['devid'] == data['devId']){
+                deviceStatus[i]['deviceStatus']['datapointAlarm'] = data['alarmState']['alarmState'];
+                getDeviceStatus(deviceStatus[i]);
+                $('#data_'+data['devId']+'_'+data['slaveIndex']+'_'+data['dataPointId']).attr('data-alarm', data['alarmState']);
+                var setDatas = {
+                    devId:data['devId'],
+                    slaveIndex:data['slaveIndex'],
+                    dataPointId:data['dataPointId'],
+                    itemId:data['itemId'],
+                    time:new Date(data['time'] * 1000).format('yyyy-MM-dd hh:mm:ss'),
+                    value:data['value']
+                };
+                setDeviceDatas(setDatas);
+            }
+        }
+    });
+
+    //查询设备变量数据
+    function queryDataPoint(deviceNo, datapoints) {
+        bootbox.confirm({
+            title: "操作提示",
+            message: "您将要主动采集数据点，是否继续？",
+            buttons: {
+                confirm: {
+                    label: '确定'
+                },
+                cancel: {
+                    label: '取消'
+                }
+            },
+            callback:function (result) {
+                if(result){
+                    usrSdk._jssdk.queryDataPoint(deviceNo, datapoints);
+                }
+                
+            }
+        });
+    }
+
+    //下发设备变量数据
+    function setDataPoint(type, devId, slaveIndex, dataPointId) {
+        var type = $('#data_'+devId+'_'+slaveIndex+'_'+dataPointId).attr('data-type');
+        var itemId = $('#data_'+devId+'_'+slaveIndex+'_'+dataPointId).attr('data-itemId');
+        var value = $('#data_'+devId+'_'+slaveIndex+'_'+dataPointId).attr('data-value');
+        if(type == 0){
+            bootbox.prompt({
+                title: "设置变量值",
+                centerVertical: true,
+                buttons: {
+                    confirm: {
+                        label: '确定'
+                    },
+                    cancel: {
+                        label: '取消'
+                    }
+                },
+                callback:function (result) {
+                    if(result !== null){
+                        usrSdk._jssdk.setDataPoint(devId, [{dataPointId:dataPointId,slaveIndex:slaveIndex,itemId:itemId,value:result}]);
+                    }
+
+                }
+            });
+        }else if(type == 1){
+            bootbox.confirm({
+                title: "操作提示",
+                message: "您将要切换开关变量，是否继续？",
+                buttons: {
+                    confirm: {
+                        label: '确定'
+                    },
+                    cancel: {
+                        label: '取消'
+                    }
+                },
+                callback:function (result) {
+                    if(result){
+                        usrSdk._jssdk.setDataPoint(devId, [{dataPointId:dataPointId,slaveIndex:slaveIndex,itemId:itemId,value:parseInt(value)?0:1}]);
+                    }
+
+                }
+            });
+        }
+    }
+
+    function dataidTotal() {
+        var dataPoints = [];
+        $("input[name='dataIds']:checked").each(function(){
+            dataPoints.push($(this).val());
+        });
+        if(dataPoints.length>0){
+            $('#dataid-total').html("已选择:"+dataPoints.length);
+        }else {
+            $('#dataid-total').html("请选择变量");
+        }
+    }
+
+    //查询设备变量历史记录
+    function getDataHistory() {
+        var timer = $('#reportrange span').html();
+        var startTime = timer.split("~")[0];
+        var endTime = timer.split("~")[1];
+
+        var dataPoints = [];
+        var legendData = [];
+        var seriesData = [];
+        $("input[name='dataIds']:checked").each(function(){
+            legendData.push($(this).attr('data-name'));
+            dataPoints.push({
+                dataPointId:$(this).val(),
+                dataPointName:$(this).attr('data-name'),
+            });
+        });
+
+        var devDatapoints = [];
+        if(dataPoints.length>0){
+            for(var i in dataPoints){
+                devDatapoints.push({
+                    deviceNo:'{$device.device.deviceId}',
+                    slaveIndex:$('#slaveIndex').val(),
+                    dataPointId:dataPoints[i].dataPointId
+                });
+            }
+        }
+
+        //历史记录分页
+        $('#history-page').bootstrapTable('destroy');
+        $('#history-page').bootstrapTable({
+            columns:[],
+            ajax: function (params) {
+                var param = {
+                    "devDatapoints": devDatapoints,
+                    "startDt":startTime,
+                    "endDt":endTime,
+                    "timeSort":"desc",
+                    "pageNo":(params.data.offset + params.data.limit)/(params.data.limit),
+                    "pageSize":params.data.limit
+                };
+                var totals = [];
+                usrSdk._jssdk.getDataHistory(param, function (data) {
+                    var historyTableData = [];
+                    if(data.status === 0){
+                        var dataHistorys = data.data.list;
+                        for(var i in devDatapoints){
+                            var dataHisTemp = [];
+                            var dataHisTableTemp = [];
+                            for(var j in dataHistorys){
+                                if(devDatapoints[i]['dataPointId'] == dataHistorys[j]['dataPointId']){
+                                    totals.push(dataHistorys[j]['total']);
+                                    for (var k in dataHistorys[j]['list']){
+                                        var tempTime = new Date(dataHistorys[j]['list'][k]['time']).format('yyyy-MM-dd hh:mm:ss');
+                                        //图表使用
+                                        dataHisTemp.push({
+                                            name: tempTime,
+                                            value: [tempTime, dataHistorys[j]['list'][k]['value']]
+                                        });
+                                        //表格使用
+                                        dataHisTableTemp.push({
+                                            name:legendData[i],
+                                            value:dataHistorys[j]['list'][k]['value'],
+                                            time:tempTime
+                                        })
+                                    }
+                                }
+                            }
+                            seriesData.push({
+                                name:legendData[i],
+                                smooth: true,
+                                type: 'line',
+                                showSymbol: false,
+                                hoverAnimation: false,
+                                data: dataHisTemp
+                            });
+                            historyTableData.push(dataHisTableTemp);
+                        }
+                        dataHistoryChart(legendData, seriesData);
+                        dataHistoryTable(legendData, historyTableData);
+                        //判断历史记录最大total
+                        var total = totals?Math.max.apply(Math,totals):0;
+                        params.success({total:total,rows:[{}]});
+                    }
+                });
+            },
+            pagination: true,
+            pageList: [50,100,150,200],
+            pageSize: 100,
+            sidePagination: 'server',//client
+        });
+    }
+
+    //处理设备状态
+    function getDeviceStatus(data) {
+        try{
+            var devid = data.devid;
+            var onlineStatus = data.deviceStatus.onlineOffline;
+            var alarmStatus = data.deviceStatus.datapointAlarm;
+            if(onlineStatus===0){
+                $('#dev_'+devid).addClass('device-offline');
+                $('#dev_'+devid).removeClass('device-online');
+                $('#dev_'+devid).removeClass('device-alarm');
+            }else {
+                if(alarmStatus === 0){
+                    $('#dev_'+devid).addClass('device-online');
+                    $('#dev_'+devid).removeClass('device-offline');
+                    $('#dev_'+devid).removeClass('device-alarm');
+                }else {
+                    $('#dev_'+devid).addClass('device-alarm');
+                    $('#dev_'+devid).removeClass('device-online');
+                    $('#dev_'+devid).removeClass('device-offline');
+                }
+            }
+        }catch (e){}
+    }
+
+    //处理设备变量数据
+    function setDeviceDatas(data) {
+        //数值类型 0：数值型 1：开关型
+        var type = parseInt($('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).attr('data-type'));
+        //读写类型：0：只读 1：读写
+        var writeRead = parseInt($('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).attr('data-writeRead'));
+
+        $('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).attr('data-value',data.value);
+
+        $('#time_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).html(data.time);
+        if(type == 0){
+            if(writeRead ==0){
+                $('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).html("<span class='span-value'>"+data.value+"</span>");
+            } else if(writeRead ==1){
+                $('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).html("<span class='span-value'>"+data.value+"</span><i onclick=setDataPoint("+type+",'"+data.devId+"',"+data.slaveIndex+","+data.dataPointId+") class='iconfont iconfont-write'>&#xe673;</i>");
+            }
+
+        } else if(type == 1){
+            if(writeRead ==0 && data.value == 0){
+                $('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).html("<i class='iconfont iconfont-off-read'>&#xe655;</i>");
+            } else if(writeRead ==0 && data.value == 1){
+                $('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).html("<i class='iconfont iconfont-on-read'>&#xe655;</i>");
+            } else if(writeRead ==1 && data.value == 0){
+                $('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).html("<i onclick=setDataPoint("+type+",'"+data.devId+"',"+data.slaveIndex+","+data.dataPointId+") class='iconfont iconfont-off-write'>&#xe632;</i>");
+            } else if(writeRead ==1 && data.value == 1){
+                $('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).html("<i onclick=setDataPoint("+type+",'"+data.devId+"',"+data.slaveIndex+","+data.dataPointId+") class='iconfont iconfont-on-write'>&#xe600;</i>");
+            } else {
+                $('#data_'+data.devId+'_'+data.slaveIndex+'_'+data.dataPointId).html(data.value);
+            }
+        }
+    }
+
+    //标签切换处理组态无法显示问题
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        // 获取已激活的标签页的名称
+        var target = $(this).attr('href');
+        //重新设置加载对应标签中ifram的src,解决标签切换ifram嵌套页面的显示问题
+        if(target === "#history"){
+            var chart = echarts.getInstanceByDom(document.getElementById("history-chart"));
+            chart.resize();
+        } else if(target === "#scada"){
+            var iframes = document.getElementById('scada').querySelectorAll('iframe');
+            var share = secret_Key(JSON.stringify({
+                account:"{:session('account')}",
+                token:"{:session('token')}",
+                URLForAPI:'{:config("API_ADDRESS")}',
+                IS_OPEN_DSSDK:'{:config("IS_OPEN_DSSDK")}',
+                dispatchServer:'{:config("dispatchServer")}'
+            }));
+            for(var i=0;i<iframes.length;i++){
+                //使用data-src属性目的是防止切换url中带“#”，无法重新加载iframe
+                var src = iframes[i].getAttribute('data-src');
+                if(src.indexOf('&share=') === -1){
+                    src = src.replace("#A",'');
+                    src = src+'&share='+share+'#A';
+                }
+                document.getElementById('iframe_'+i).height = '100%';
+                document.getElementById('iframe_'+i).src = src;
+            }
+        }
+    });
+    
+    //获取变量列表
+    getDatas();
+    function getDatas() {
+        var deviceId = "{$device.device.deviceId}";
+        var slaveIndex = $('#slaveIndex').val();
+        var token = "{:session('token')}";
+        $.ajax({
+            url:'{:config("API_ADDRESS")}/datadic/getDatas',
+            type:'POST',
+            data:JSON.stringify({
+                isTimestampDatas:1,
+                isGetLocationDatas:1,
+                deviceId:deviceId,
+                slaveIndex:slaveIndex,
+                offset:0,
+                limit:1000,
+                token:token
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType:'json',
+            success:function (result) {
+                $('#data-ul').html("");
+                if(result.status ===0){
+                    var datasList = result.data.iotDataDescriptionList;
+                    if(datasList.length>0) {
+                        for (var i = 0; i < datasList.length; i++) {
+                            if (i == 0) {
+                                $('#data-ul').append("<li><div class='checkbox checkbox-primary'><input onclick='dataidTotal()' style='styled' type='checkbox' checked name='dataIds' id='dataIds' value=" + datasList[i].id + " data-name=" + datasList[i].name + " /><label>" + datasList[i].name + "</label></div></li>");
+                            } else {
+                                $('#data-ul').append("<li><div class='checkbox checkbox-primary'><input onclick='dataidTotal()' style='styled' type='checkbox' name='dataIds' id='dataIds' value=" + datasList[i].id + " data-name=" + datasList[i].name + " /><label>" + datasList[i].name + "</label></div></li>");
+                            }
+                        }
+                        getDataHistory();
+                    }
+                    dataidTotal();
+                }
+            }
+        })
+    }
+
+    //历史记录曲线图表
+    function dataHistoryChart(legendData,seriesData) {
+        var myChart = echarts.init(document.getElementById("history-chart"));
+        var option = {
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '4%',
+                right: '4%',
+                containLabel: true
+            },
+            legend:{
+                data:legendData
+            },
+            xAxis: {
+                type: 'time',
+                splitLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#666',  //更改坐标轴文字颜色
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#666' //更改坐标轴颜色
+                    }
+                }
+            },
+            yAxis: {
+                type: 'value',
+                boundaryGap: [0, '100%'],
+                splitLine: {
+                    show: false
+                },
+                max: function (value) {  //此处为修改的Y轴最大值，动态设置最大值为 当前显示值最大数+10
+                    return value.max + 10;
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#666' //更改坐标轴颜色
+                    }
+                },
+                axisLabel: {
+                    rotate: 30,
+                    formatter: function (value) {
+                        if (value >= 10000 * 10000) {
+                            return value / 10000 / 10000 + '亿';
+                        } else if (value >= 10000) {
+                            return value / 10000 + '万';
+                        }
+                        return value;
+                    },
+                    show: true,
+                    textStyle: {
+                        color: '#666',  //更改坐标轴文字颜色
+                    }
+                }
+            },
+            dataZoom: [
+                {
+                    show:true,
+                    realtime:true,
+                    //start:((dataHistorysObj[0].length>=30)?(1-((30/dataHistorysObj[0].length).toFixed(4)))*100:'')
+                },
+                {
+                    type: 'inside',
+                    zoomOnMouseWheel:false
+                }
+            ],
+            series: seriesData
+        };
+        myChart.setOption(option);
+        window.onresize = myChart.resize;
+    }
+
+    //历史记录表格
+    function dataHistoryTable(legendData, historyDatas) {
+        $('#historyTab').empty();
+        $('#historyTabContent').empty();
+        for(var i=0;i<historyDatas.length;i++){
+            if(i==0){
+                $('#historyTab').append("<li class='active'><a href='#tabTable-"+i+"' data-toggle='tab'>"+legendData[i]+"</a></li>");
+                $('#historyTabContent').append(
+                    "<div class='tab-pane fade in active' id='tabTable-"+i+"'>" +
+                    "<table class='table' id='table-"+i+"'>" +
+                    "<thead><tr><th data-field='value'>数值</th><th data-field='time'>时间</th></tr></thead>" +
+                    "</table>" +
+                    "</div>"
+                );
+            }else {
+                $('#historyTab').append("<li><a href='#tabTable-"+i+"' data-toggle='tab'>"+legendData[i]+"</a></li>");
+                $('#historyTabContent').append(
+                    "<div class='tab-pane fade' id='tabTable-"+i+"'>" +
+                    "<table class='table' id='table-"+i+"'>" +
+                    "<thead><tr><th data-field='value'>数值</th><th data-field='time'>时间</th></tr></thead>" +
+                    "</table>" +
+                    "</div>"
+                );
+            }
+            $('#table-'+i).bootstrapTable('destroy');
+            $('#table-'+i).bootstrapTable({data:historyDatas[i]});
+        }
+    }
+
+    //组态share加密方法
+    function secret_Key(str) {
+        var pwd = 'usr.cn';
+        var b = Base64; //Base64加密(加载base64.js)
+        str = b.encode(str);//Base64加密
+        var prand = "";
+        for(var i=0; i<pwd.length; i++) {
+            prand += pwd.charCodeAt(i).toString();
+        }
+        var sPos = Math.floor(prand.length / 5);
+        var mult = parseInt(prand.charAt(sPos) + prand.charAt(sPos*2) + prand.charAt(sPos*3) + prand.charAt(sPos*4) + prand.charAt(sPos*5));
+        var incr = Math.ceil(pwd.length / 2);
+        var modu = Math.pow(2, 31) - 1;
+        if(mult < 2) {
+            alert("Please choose a more complex or longer password.");
+            return null;
+        }
+        var salt = Math.round(Math.random() * 1000000000) % 100000000;
+        prand += salt;
+        while(prand.length > 10) {
+            prand = (parseInt(prand.substring(0, 10)) + parseInt(prand.substring(10, prand.length))).toString();
+        }
+        prand = (mult * prand + incr) % modu;
+        var enc_chr = "";
+        var enc_str = "";
+        for(var i=0; i<str.length; i++) {
+            enc_chr = parseInt(str.charCodeAt(i) ^ Math.floor((prand / modu) * 255));
+            if(enc_chr < 16) {
+                enc_str += "0" + enc_chr.toString(16);
+            } else enc_str += enc_chr.toString(16);
+            prand = (mult * prand + incr) % modu;
+        }
+        salt = salt.toString(16);
+        while(salt.length < 8)salt = "0" + salt;
+        enc_str += salt;
+        return enc_str;
+    }
+</script>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>智慧农业管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Optimus-Zhang-Prime" />
+    <link rel="stylesheet" href="../../static/agriculture/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../static/agriculture/bootstrap-table/bootstrap-table.min.css"/>
+    <link rel="stylesheet" href="../../static/agriculture/css/daterangepicker.css" />
+    <link rel="stylesheet" href="../../static/agriculture/css/font-awesome.css" />
+    <link rel="stylesheet" href="../../static/agriculture/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../static/agriculture/css/styles.css?t=20190912" />
+    <link rel="stylesheet" href="../../static/agriculture/css/build.css" />
+    <script type="text/javascript" src="../../static/agriculture/js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/js/demo.common.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/js/echarts.common.min.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/bootstrap-table/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/layui/layui.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/js/polyfill.min.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/js/moment.min.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/js/base64.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/js/daterangepicker.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/jssdk/jssdk-1.0.0.min.js"></script>
+    <script type="text/javascript" src="../../static/agriculture/jssdk/usrSDK.js"></script>
+</head>
+<body>
+<header class="page-top">
+    <div class="page-top-logo">智慧农业系统</div>
+    <div class="page-top-right page-top-menu dropdown" id="dropdown-profile">
+        <a class="profile" data-toggle="dropdown" data-target="dropdown-profile">{:session('account')}<i class="caret"></i></a>
+        <ul class="dropdown-menu" role="menu">
+            <li><a class="dropdown-item" href="">退出</a></li>
+        </ul>
+    </div>
+    <div class="page-top-right page-top-link"><a href="http://mp.usr.cn?token={:session('token')}" target="_blank">有人云平台</a></div>
+</header>
+<div class="sidebar-menu">
+    <div class="sidebar-menu-scroll">
+        <ul>
+            <li><a href="{:Url('Monitor/index')}">监控中心</a></li>
+            <li><a href="{:Url('Device/index')}">设备列表</a></li>
+            <li><a href="{:Url('Device/index')}">添加设备</a></li>
+            <li><a href="{:Url('Device/groupList')}">项目分组</a></li>
+            <li><a href="{:Url('User/userList')}">子用户管理</a></li>
+            <li><a href="{:Url('User/userInfo')}">用户信息</a></li>
+        </ul>
+    </div>
+</div>
+</body>
