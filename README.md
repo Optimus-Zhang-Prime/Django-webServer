@@ -1,4 +1,4 @@
-#Django Engineering Example
+# Django Engineering Example
 
 The IDE used is Pycharm
 
@@ -8,11 +8,11 @@ The front-end design is relatively simple and will be modified later on
 
 The current main modules of the website include:
 
-####AID:
+#### AID:
 
 Emergency health education system, main module of the website
 
-#####Video, users, upload, comment
+##### Video, users, upload, comment
 
 Auxiliary module for Aid
 
